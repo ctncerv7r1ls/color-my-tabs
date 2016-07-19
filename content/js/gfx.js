@@ -22,7 +22,7 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
                 
                 // stupid variable mixing so it makes some brightness changes
                 let d = Math.abs(hslColor.l - val);
-                let n = d < val ? (val - d) * d : (d - val) * val;
+                let n = d < val ? (val - d) * d * 2 : (d - val) * val * 2;
                 
                 val += hslColor.l >= 0.75 ? n : -n;
             }
