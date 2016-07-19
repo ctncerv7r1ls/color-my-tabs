@@ -72,6 +72,14 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
             this.style["text-shadow"] = "0px 0px 4px " + Prefs.getValue("hoveredTabFontShadowColor");
         }
     };
+    
+    this.PinnedNotifiedTabCSSRule = function(cmtTabId, rgbColor, defaultColor) {
+        CSSRule.call(this);
+        
+        // actual CSS rule data
+        this.selectors = "#" + cmtTabId + "[pinned][titlechanged]";
+        this.style["box-shadow"] = "0px 5px 10px 2px rgba(255, 255, 200, 0.9) inset";
+    };
 
     this.IndicationBarCSSRule = function() {
         CSSRule.call(this);
@@ -94,6 +102,7 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
     this.ActiveTabCSSRule.prototype = new CSSRule();
     this.InactiveTabCSSRule.prototype = new CSSRule();
     this.HoveredTabCSSRule.prototype = new CSSRule();
+    this.PinnedNotifiedTabCSSRule.prototype = new CSSRule();
     this.IndicationBarCSSRule.prototype = new CSSRule();
     this.IndicationBarTabsOnTopCSSRule.prototype = new CSSRule();
 };
