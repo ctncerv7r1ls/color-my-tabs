@@ -2,9 +2,10 @@ let EXPORTED_SYMBOLS = ["_Tabs"];
 
 let _Tabs = function(TabHandlers, TabHandlerStore) {
     this.onOpen = function(event) {
-        let tab = event.target;        
+        let tab = event.target;
+        let tabPseudoId = tab.linkedPanel; // this will be used as a key for reference in store
         let tabHandler = new TabHandlers.TabHandler(tab);
-        TabHandlerStore.addItem(tabHandler.tabId, tabHandler);
+        TabHandlerStore.addItem(tabPseudoId, tabHandler);
         tabHandler.refresh();
     };
     
@@ -29,11 +30,16 @@ let _Tabs = function(TabHandlers, TabHandlerStore) {
     };
     
     this.clear = function(window) {
-        TabHandlerStore.removeAllItems(function(tabHandler) {
-            tabHandler.clear();
-        });
-        
         let tabBrowser = window.gBrowser;
+        
+        // clear only tab handlers with tabs which belong to currently cleared window
+        for (let tab of tabBrowser.tabContainer.childNodes) {
+            let tabHandler = TabHandlerStore.getItem(tab.linkedPanel);
+            if (tabHandler) {
+                tabHandler.clear();
+            }
+        }
+        
         tabBrowser.tabContainer.removeEventListener("TabOpen", this.onTabOpen, false);
         tabBrowser.tabContainer.removeEventListener("TabClose", this.onTabClose, false);
     };

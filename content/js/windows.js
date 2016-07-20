@@ -27,6 +27,7 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
             if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser") {
                 StyleSheets.clear(domWindow);
                 IndicationBars.clear(domWindow);
+                Tabs.clear(domWindow);
             }
         }
     };
