@@ -1,5 +1,4 @@
-// import internal modules
-Components.utils.import("resource://gre/modules/Promise.jsm");
+// set observer service global reference
 let ObserverService = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
 
 // set some common constants
@@ -9,22 +8,9 @@ const cmtStyleSheetId = "cmtStyle";
 const cmtIndBarId = "cmtIndBar";
 const cmtTabId = "cmtTab";
 
-// future objects and references from module symbols
+// future global references from module symbols
 let Prefs = null;
-let RGBColor = null;
-let HSLColor = null;
-let Store = null;
-let Gfx = null;
-let CSSRule = null;
-let CSSRules = null;
-let TabHandlers = null;
-let StyleSheets = null;
-let Tabs = null;
-let IndicationBars = null;
 let Windows = null;
-
-// future Store objects
-let TabHandlerStore = null;
 let RGBColorStore = null;
 
 function startup(data, reason) {
@@ -43,23 +29,23 @@ function startup(data, reason) {
     Components.utils.import(cmtJSPath + "windows.js");
     
     // link object references with module symbols
-    RGBColor = _RGBColor;
-    HSLColor = _HSLColor;
-    Store = _Store;
-    CSSRule = _CSSRule;
+    let RGBColor = _RGBColor;
+    let HSLColor = _HSLColor;
+    let Store = _Store;
+    let CSSRule = _CSSRule;
     
     // create new Store objects
-    TabHandlerStore = new Store();
+    let TabHandlerStore = new Store();
     RGBColorStore = new Store(500); // colors cache limited to 500 entries
     
     // create new objects from module symbols with passed dependencies
     Prefs = new _Prefs(cmtName);
-    StyleSheets = new _StyleSheets(cmtStyleSheetId);
-    Gfx = new _Gfx(Prefs, RGBColor, RGBColorStore);
-    CSSRules = new _CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
-    IndicationBars = new _IndicationBars(StyleSheets, CSSRules, cmtIndBarId);
-    TabHandlers = new _TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars);
-    Tabs = new _Tabs(TabHandlers, TabHandlerStore);
+    let StyleSheets = new _StyleSheets(cmtStyleSheetId);
+    let Gfx = new _Gfx(Prefs, RGBColor, RGBColorStore);
+    let CSSRules = new _CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
+    let IndicationBars = new _IndicationBars(StyleSheets, CSSRules, cmtIndBarId);
+    let TabHandlers = new _TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars);
+    let Tabs = new _Tabs(TabHandlers, TabHandlerStore);
     Windows = new _Windows(StyleSheets, IndicationBars, Tabs);
     
     // overwrite onApply event in Prefs because it'll have to call Windows methods to reinit everything
