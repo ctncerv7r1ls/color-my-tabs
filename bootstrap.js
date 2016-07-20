@@ -43,7 +43,7 @@ function startup(data, reason) {
     let StyleSheets = new _StyleSheets(cmtStyleSheetId);
     let Gfx = new _Gfx(Prefs, RGBColor, RGBColorStore);
     let CSSRules = new _CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
-    let IndicationBars = new _IndicationBars(StyleSheets, CSSRules, cmtIndBarId);
+    let IndicationBars = new _IndicationBars(StyleSheets, CSSRules, cmtIndBarId, Prefs);
     let TabHandlers = new _TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars);
     let Tabs = new _Tabs(TabHandlers, TabHandlerStore);
     Windows = new _Windows(StyleSheets, IndicationBars, Tabs);
