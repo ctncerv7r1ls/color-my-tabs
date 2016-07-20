@@ -1,6 +1,6 @@
 let EXPORTED_SYMBOLS = ["_StyleSheets"];
 
-let _StyleSheets = function(cmtStyleSheetId) {
+let _StyleSheets = function(cmtStyleSheetId, CSSRules) {
     this.init = function(window) {
         let document = window.document;
         let style = document.createElementNS("http://www.w3.org/1999/xhtml", "style");
@@ -9,6 +9,10 @@ let _StyleSheets = function(cmtStyleSheetId) {
         style.setAttribute("id", cmtStyleSheetId);
         
         document.documentElement.appendChild(style);
+        
+        // one-time general rule applied here as a matter of convenience
+        let pinnedNotifiedTabCSSRule = new CSSRules.PinnedNotifiedTabCSSRule();
+        pinnedNotifiedTabCSSRule.apply(style.sheet);
     };
     
     this.clear = function(window) {

@@ -40,9 +40,9 @@ function startup(data, reason) {
     
     // create new objects from module symbols with passed dependencies
     Prefs = new _Prefs(cmtName);
-    let StyleSheets = new _StyleSheets(cmtStyleSheetId);
     let Gfx = new _Gfx(Prefs, RGBColor, RGBColorStore);
     let CSSRules = new _CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
+    let StyleSheets = new _StyleSheets(cmtStyleSheetId, CSSRules);
     let IndicationBars = new _IndicationBars(StyleSheets, CSSRules, cmtIndBarId, Prefs);
     let TabHandlers = new _TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars);
     let Tabs = new _Tabs(TabHandlers, TabHandlerStore);

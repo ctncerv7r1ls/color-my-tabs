@@ -95,9 +95,6 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
                 this.cssRules.push(activeTabCSSRule.apply(styleSheet));
                 this.cssRules.push(inactiveTabCSSRule.apply(styleSheet));
                 this.cssRules.push(hoveredTabCSSRule.apply(styleSheet));
-                
-                let pinnedNotifiedTabCSSRule = new CSSRules.PinnedNotifiedTabCSSRule(this.tabId); // one-time rule
-                this.cssRules.push(pinnedNotifiedTabCSSRule.apply(styleSheet));
             }
         }
     };

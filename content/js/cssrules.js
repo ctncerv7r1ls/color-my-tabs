@@ -73,11 +73,11 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         }
     };
     
-    this.PinnedNotifiedTabCSSRule = function(cmtTabId, rgbColor, defaultColor) {
+    this.PinnedNotifiedTabCSSRule = function() {
         CSSRule.call(this);
         
         // actual CSS rule data
-        this.selectors = "#" + cmtTabId + "[pinned][titlechanged]";
+        this.selectors = ".tabbrowser-tab[pinned][titlechanged]";
         this.style["box-shadow"] = "0px 5px 10px 2px rgba(255, 255, 200, 0.9) inset";
     };
 
