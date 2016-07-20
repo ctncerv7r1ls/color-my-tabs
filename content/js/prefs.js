@@ -149,7 +149,7 @@ let _Prefs = function(cmtName) {
                     prefValue = prefControl.value;
                 }
                 
-                if (prefValue) {
+                if (prefValue != null) {
                     this.currentPrefs[prefName] = prefValue;
                 }
             }
