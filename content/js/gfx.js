@@ -118,7 +118,7 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
             pixelRGBAColor.b = pixelArray[index + 2];
             pixelRGBAColor.a = pixelArray[index + 3];
             
-            if (pixelRGBAColor.a < 128 || pixelRGBAColor.isTooDark() || pixelRGBAColor.isTooBright()) {
+            if (pixelRGBAColor.a < 128 || pixelRGBAColor.isImproper()) {
                 continue; // ignore this pixel if alpha is too low and color is not satysfying
             }
             
