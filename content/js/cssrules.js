@@ -83,11 +83,42 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
 
     this.IndicationBarCSSRule = function() {
         CSSRule.call(this);
-        
+
         // actual CSS rule data
         this.selectors = "#navigator-toolbox[tabsontop='false']>#" + cmtIndBarId;
         this.style["height"] = "5px";
         this.style["-moz-box-ordinal-group"] = "101";
+        
+        let selectedSkin = Components.classes["@mozilla.org/preferences-service;1"]
+                                     .getService(Components.interfaces.nsIPrefService)
+                                     .getBranch("general.skins.").getCharPref("selectedSkin");
+        
+        switch (selectedSkin) {
+            case "mf3": {
+                this.style["margin-top"] = "-3px";
+            } break;
+            case "kempelton-reloaded": {
+                this.style["margin-top"] = "-1px";
+            } break;
+            case "aeromoon": {
+                this.style["margin-top"] = "-2px";
+            } break;
+            case "littlemoon": {
+                this.style["margin-top"] = "-2px";
+            } break;
+            case "pastmodern-r": {
+                this.style["margin-top"] = "-7px";
+            } break;
+            case "reinheit": {
+                this.style["margin-top"] = "-3px";
+            } break;
+            case "darkness": {
+                this.style["margin-top"] = "-1px";
+            } break;
+            case "f2tm": {
+                this.style["margin-top"] = "-4px";
+            } break;
+        }
     };
     
     this.IndicationBarTabsOnTopCSSRule = function() {
@@ -97,6 +128,28 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         this.selectors = "#navigator-toolbox[tabsontop='true']>#" + cmtIndBarId;
         this.style["height"] = "5px";
         this.style["-moz-box-ordinal-group"] = "49";
+        
+        let selectedSkin = Components.classes["@mozilla.org/preferences-service;1"]
+                                     .getService(Components.interfaces.nsIPrefService)
+                                     .getBranch("general.skins.").getCharPref("selectedSkin");
+        
+        switch (selectedSkin) {
+            case "littlemoon": {
+                this.style["-moz-box-ordinal-group"] = "30";
+            } break;
+            case "pastmodern-r": {
+                this.style["margin-top"] = "-7px";
+            } break;
+            case "reinheit": {
+                this.style["margin-top"] = "-3px";
+            } break;
+            case "darkness": {
+                this.style["margin-top"] = "-1px";
+            } break;
+            case "f2tm": {
+                this.style["margin-top"] = "-4px";
+            } break;
+        }
     };
 
     this.ActiveTabCSSRule.prototype = new CSSRule();
