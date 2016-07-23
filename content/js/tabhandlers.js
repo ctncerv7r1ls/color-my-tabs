@@ -12,6 +12,12 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
         this.deferredColorAssignment = null; // if set it means that color assignment is still executed
         this.activeTabHSLColor = new HSLColor(); // this will be used to set color of an indication bar
         
+        // initially let it be a default color
+        let defaultColor = new RGBColor();
+        defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor"))
+        this.activeTabHSLColor.loadFromRGBColor(defaultColor); 
+        
+        
         let tabHandler = this;
         
         // mutation observer reacts to changes of tab's attributes
