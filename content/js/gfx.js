@@ -171,7 +171,7 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
         
         if (rgbColor) {
             // if getting from cache successful
-            console.log("favicon: " + faviconSrc + ", rgb color from cache: " + rgbColor.getHTMLColor());
+            //console.log("favicon: " + faviconSrc + ", rgb color from cache: " + rgbColor.getHTMLColor());
             deferred.resolve(rgbColor);
         } else {
             let gfx = this;
@@ -181,7 +181,7 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
                 rgbColor = gfx.getImageRGBColor(imgPixelData); // get RGB color for image pixel data
                 RGBColorStore.addItem(faviconSrc, rgbColor); // add this color to cache
                 
-                console.log("favicon: " + faviconSrc + ", new rgb color: " + rgbColor.getHTMLColor());
+                //console.log("favicon: " + faviconSrc + ", new rgb color: " + rgbColor.getHTMLColor());
                 
                 deferred.resolve(rgbColor);
             }, function() {
