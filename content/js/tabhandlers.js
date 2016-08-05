@@ -62,9 +62,10 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
         } else {
             let defaultColor = new RGBColor(); // if tab has no image we will create a new RGB color
             defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor")); // and load the default color from preferences
+            defaultColor["isDefaultColor"] = true; // append this property to mark that it's a default color
             
             this.deferredColorAssignment = null; // reset this reference, as this method is finished
-            deferred.resolve(defaultColor, true);
+            deferred.resolve(defaultColor);
         }
 
         return deferred.promise;
@@ -128,7 +129,7 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
 
         this.assignColor().then(function(rgbColor) {
             // this is executed when color assignment is successful
-            tabHandler.applyStyling(rgbColor);
+            tabHandler.applyStyling(rgbColor, rgbColor.isDefaultColor);
             deferred.resolve();
         });
         
