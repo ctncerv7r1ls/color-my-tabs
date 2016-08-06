@@ -4,8 +4,9 @@ let _IndicationBars = function(StyleSheets, CSSRules, cmtIndBarId, Prefs) {
     this.init = function(window) {
         if (Prefs.getValue("showIndicationBar")) {
             let navToolbox = window.document.getElementById("navigator-toolbox");
+            let tabContainerVisible = !window.document.getElementById("TabsToolbar").collapsed;
             
-            if (navToolbox) {
+            if (navToolbox && tabContainerVisible) {
                 let indBar = window.document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "dummy");
                 
                 indBar.setAttribute("id", cmtIndBarId);
