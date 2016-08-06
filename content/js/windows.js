@@ -12,8 +12,7 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
                 domWindow.removeEventListener("load", arguments.callee, false);
                 domWindow.setTimeout( function() {
                     // execute only it this is a real browser window, not some kind of alert etc.
-                    if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser"
-                        && domWindow.document.getElementById("tabbrowser-tabs")) {
+                    if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser") {
                         StyleSheets.init(domWindow);
                         IndicationBars.init(domWindow);
                         Tabs.init(domWindow);
@@ -25,8 +24,7 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
         onCloseWindow: function(nsIObj) {
             let domWindow = nsIObj.QueryInterface(Components.interfaces.nsIInterfaceRequestor).getInterface(Components.interfaces.nsIDOMWindow);
             // execute only it this is a real browser window, not some kind of alert etc.
-            if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser"
-                && domWindow.document.getElementById("tabbrowser-tabs")) {
+            if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser") {
                 StyleSheets.clear(domWindow);
                 IndicationBars.clear(domWindow);
                 Tabs.clear(domWindow);
@@ -40,11 +38,9 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
         while (windowsEnumerator.hasMoreElements()) {
             let window = windowsEnumerator.getNext().QueryInterface(Components.interfaces.nsIDOMWindow);
             
-            if (window.document.getElementById("tabbrowser-tabs")) {
-                StyleSheets.init(window);
-                IndicationBars.init(window);
-                Tabs.init(window);
-            }
+            StyleSheets.init(window);
+            IndicationBars.init(window);
+            Tabs.init(window);
         }
         
         WindowMediator.addListener(this.windowListener);
@@ -58,11 +54,9 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
         while (windowsEnumerator.hasMoreElements()) {
             let window = windowsEnumerator.getNext().QueryInterface(Components.interfaces.nsIDOMWindow);
             
-            if (window.document.getElementById("tabbrowser-tabs")) {
-                StyleSheets.clear(window);
-                IndicationBars.clear(window);
-                Tabs.clear(window);
-            }
+            StyleSheets.clear(window);
+            IndicationBars.clear(window);
+            Tabs.clear(window);
         }
     }
 };
