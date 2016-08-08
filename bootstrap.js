@@ -7,54 +7,51 @@ const cmtStyleSheetId = "cmtStyle";
 const cmtIndBarId = "cmtIndBar";
 const cmtTabId = "cmtTab";
 
-// object as a scope for global imports
-let GlobalImports = {};
-
 // future global references from module symbols
 let Prefs = null;
 let Windows = null;
 let RGBColorStore = null;
 
 function startup(data, reason) {
-    // object as a scope for local imports
-    let LocalImports = {};
+    // object as a scope for imports
+    let Imports = {};
     
     // import own modules
-    Components.utils.import(cmtJSPath + "prefs.js", GlobalImports);
-    Components.utils.import(cmtJSPath + "stylesheets.js", LocalImports);
-    Components.utils.import(cmtJSPath + "rgbcolor.js", LocalImports);
-    Components.utils.import(cmtJSPath + "hslcolor.js", LocalImports);
-    Components.utils.import(cmtJSPath + "store.js", LocalImports);
-    Components.utils.import(cmtJSPath + "gfx.js", LocalImports);
-    Components.utils.import(cmtJSPath + "cssrule.js", LocalImports);
-    Components.utils.import(cmtJSPath + "cssrules.js", LocalImports);
-    Components.utils.import(cmtJSPath + "indbars.js", LocalImports);
-    Components.utils.import(cmtJSPath + "tabhandlers.js", LocalImports);
-    Components.utils.import(cmtJSPath + "tabs.js", LocalImports);
-    Components.utils.import(cmtJSPath + "windows.js", GlobalImports);
+    Components.utils.import(cmtJSPath + "prefs.js", Imports);
+    Components.utils.import(cmtJSPath + "stylesheets.js", Imports);
+    Components.utils.import(cmtJSPath + "rgbcolor.js", Imports);
+    Components.utils.import(cmtJSPath + "hslcolor.js", Imports);
+    Components.utils.import(cmtJSPath + "store.js", Imports);
+    Components.utils.import(cmtJSPath + "gfx.js", Imports);
+    Components.utils.import(cmtJSPath + "cssrule.js", Imports);
+    Components.utils.import(cmtJSPath + "cssrules.js", Imports);
+    Components.utils.import(cmtJSPath + "indbars.js", Imports);
+    Components.utils.import(cmtJSPath + "tabhandlers.js", Imports);
+    Components.utils.import(cmtJSPath + "tabs.js", Imports);
+    Components.utils.import(cmtJSPath + "windows.js", Imports);
     
-    let RGBColor = LocalImports.RGBColor;
-    let HSLColor = LocalImports.HSLColor;
-    let Store = LocalImports.Store;
-    let CSSRule = LocalImports.CSSRule;
+    let RGBColor = Imports.RGBColor;
+    let HSLColor = Imports.HSLColor;
+    let Store = Imports.Store;
+    let CSSRule = Imports.CSSRule;
     
     // create new Store objects for tab handlers and colors
-    let TabHandlerStore = new LocalImports.Store();
-    RGBColorStore = new LocalImports.Store(500); // colors cache limited to 500 entries
+    let TabHandlerStore = new Imports.Store();
+    RGBColorStore = new Imports.Store(500); // colors cache limited to 500 entries
     
     // create new objects from module symbols with passed dependencies
-    Prefs = new GlobalImports.Prefs(cmtName);
+    Prefs = new Imports.Prefs(cmtName);
     
-    let Gfx = new LocalImports.Gfx(Prefs, RGBColor, RGBColorStore);
-    let CSSRules = new LocalImports.CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
-    let StyleSheets = new LocalImports.StyleSheets(cmtStyleSheetId, CSSRules);
-    let IndicationBars = new LocalImports.IndicationBars(StyleSheets, CSSRules, cmtIndBarId, Prefs);
-    let TabHandlers = new LocalImports.TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets,
-                                                   cmtTabId, IndicationBars);
+    let Gfx = new Imports.Gfx(Prefs, RGBColor, RGBColorStore);
+    let CSSRules = new Imports.CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
+    let StyleSheets = new Imports.StyleSheets(cmtStyleSheetId, CSSRules);
+    let IndicationBars = new Imports.IndicationBars(StyleSheets, CSSRules, cmtIndBarId, Prefs);
+    let TabHandlers = new Imports.TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets,
+                                              cmtTabId, IndicationBars);
     
-    let Tabs = new LocalImports.Tabs(TabHandlers, TabHandlerStore);
+    let Tabs = new Imports.Tabs(TabHandlers, TabHandlerStore);
     
-    Windows = new GlobalImports.Windows(StyleSheets, IndicationBars, Tabs);
+    Windows = new Imports.Windows(StyleSheets, IndicationBars, Tabs);
     
     // overwrite onApply method in Prefs - it'll have to call Windows methods to reinit everything
     Prefs.onApply = {
