@@ -189,9 +189,9 @@
   </tabbox>
   
   <hbox style="padding: 0px 0px 5px 0px">
-    <button id="resetSettings" label="Reset settings to default" oncommand="onResetSettings();"/>
+    <button id="resetSettings" label="Reset values to default" oncommand="onResetSettings();"/>
     <spacer flex="1"/>
-    <button id="applySettings" label="Apply settings" oncommand="onApplySettings();"/>
+    <button id="applySettings" label="Apply changes" oncommand="onApplySettings();"/>
     <button label="Close" onclick="window.close();"/>
   </hbox>
   
