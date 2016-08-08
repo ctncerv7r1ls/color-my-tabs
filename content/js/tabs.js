@@ -3,7 +3,7 @@ let EXPORTED_SYMBOLS = ["Tabs"];
 let Tabs = function(TabHandlers, TabHandlerStore) {
     this.onOpen = function(event) {
         let tab = event.target;
-        let tabPseudoId = tab.linkedPanel; // this will be used as a key for reference in store
+        let tabPseudoId = tab.linkedPanel; // this will be used as a reference key in store
         let tabHandler = new TabHandlers.TabHandler(tab);
         
         TabHandlerStore.addItem(tabPseudoId, tabHandler);
@@ -13,7 +13,7 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
     this.onClose = function(event) {
         let tab = event.target;
         
-        TabHandlerStore.removeItem(tab.id, function(tabHandler) {
+        TabHandlerStore.removeItem(tab.linkedPanel, function(tabHandler) {
             tabHandler.clear();
         });
     };
@@ -22,9 +22,10 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
         let tabBrowser = window.gBrowser;
         
         for (let tab of tabBrowser.tabs) {
+            let tabPseudoId = tab.linkedPanel; // this will be used as a reference key in store
             let tabHandler = new TabHandlers.TabHandler(tab);
             
-            TabHandlerStore.addItem(tabHandler.tabId, tabHandler);
+            TabHandlerStore.addItem(tabPseudoId, tabHandler);
             tabHandler.refresh();
         }
         
