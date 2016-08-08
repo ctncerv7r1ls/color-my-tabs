@@ -1,6 +1,6 @@
-let EXPORTED_SYMBOLS = ["_StyleSheets"];
+let EXPORTED_SYMBOLS = ["StyleSheets"];
 
-let _StyleSheets = function(cmtStyleSheetId, CSSRules) {
+let StyleSheets = function(cmtStyleSheetId, CSSRules) {
     this.init = function(window) {
         let document = window.document;
         let style = document.createElementNS("http://www.w3.org/1999/xhtml", "style");

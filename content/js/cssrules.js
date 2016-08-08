@@ -1,6 +1,8 @@
-let EXPORTED_SYMBOLS = ["_CSSRules"];
+let EXPORTED_SYMBOLS = ["CSSRules"];
 
-let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
+Components.utils.import("resource://gre/modules/Services.jsm");
+
+let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
     this.ActiveTabCSSRule = function(cmtTabId, rgbColor, defaultColor) {
         CSSRule.call(this);
         
@@ -12,7 +14,8 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         
         this.hslColor = hslColor; // binding hslColor to this object as it'll be used by other module
         
-        let gradient = Gfx.createGradient(hslColor, Prefs.getValue("activeTabFadingRange"), Prefs.getValue("activeTabFadingPower"));
+        let gradient = Gfx.createGradient(hslColor, Prefs.getValue("activeTabFadingRange"),
+                                                    Prefs.getValue("activeTabFadingPower"));
         
         // actual CSS rule data
         this.selectors = "#" + cmtTabId + "[selected]";
@@ -38,7 +41,8 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         hslColor.s = hslColor.s * (Prefs.getValue("inactiveTabSaturation") / 50);
         hslColor.l = Gfx.getBrightnessMod(hslColor, Prefs.getValue("inactiveTabBrightness"), defaultColor);
         
-        let gradient = Gfx.createGradient(hslColor, Prefs.getValue("inactiveTabFadingRange"), Prefs.getValue("inactiveTabFadingPower"), true);
+        let gradient = Gfx.createGradient(hslColor, Prefs.getValue("inactiveTabFadingRange"),
+                                                    Prefs.getValue("inactiveTabFadingPower"), true);
         
         // actual CSS rule data
         this.selectors = "#" + cmtTabId;
@@ -60,7 +64,8 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         hslColor.s = hslColor.s * (Prefs.getValue("hoveredTabSaturation") / 50);
         hslColor.l = Gfx.getBrightnessMod(hslColor, Prefs.getValue("hoveredTabBrightness"), defaultColor);
         
-        let gradient = Gfx.createGradient(hslColor, Prefs.getValue("hoveredTabFadingRange"), Prefs.getValue("hoveredTabFadingPower"), true);
+        let gradient = Gfx.createGradient(hslColor, Prefs.getValue("hoveredTabFadingRange"),
+                                                    Prefs.getValue("hoveredTabFadingPower"), true);
         
         // actual CSS rule data
         this.selectors = "#" + cmtTabId + ":not([selected]):hover";
@@ -89,9 +94,7 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         this.style["height"] = "5px";
         this.style["-moz-box-ordinal-group"] = "101";
         
-        let selectedSkin = Components.classes["@mozilla.org/preferences-service;1"]
-                                     .getService(Components.interfaces.nsIPrefService)
-                                     .getBranch("general.skins.").getCharPref("selectedSkin");
+        let selectedSkin = Services.prefs.getBranch("general.skins.").getCharPref("selectedSkin");
         
         switch (selectedSkin) {
             case "mf3": {
@@ -129,9 +132,7 @@ let _CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         this.style["height"] = "5px";
         this.style["-moz-box-ordinal-group"] = "49";
         
-        let selectedSkin = Components.classes["@mozilla.org/preferences-service;1"]
-                                     .getService(Components.interfaces.nsIPrefService)
-                                     .getBranch("general.skins.").getCharPref("selectedSkin");
+        let selectedSkin = Services.prefs.getBranch("general.skins.").getCharPref("selectedSkin");
         
         switch (selectedSkin) {
             case "littlemoon": {

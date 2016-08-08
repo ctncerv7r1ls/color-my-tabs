@@ -1,26 +1,23 @@
-let EXPORTED_SYMBOLS = ["_Gfx"];
+let EXPORTED_SYMBOLS = ["Gfx"];
 
-Components.utils.import("resource://gre/modules/devtools/Console.jsm");
+Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/Promise.jsm");
-let WindowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
 
-let _Gfx = function(Prefs, RGBColor, RGBColorStore) {    
-    this.getBrightnessMod = function(hslColor, val, defaultColor) {
-        // returns brightness value required to create gradients for each tab CSS rule
-        
+let Gfx = function(Prefs, RGBColor, RGBColorStore) {
+    
+    // returns modified brightness value required to create gradients for each tab CSS rule
+    this.getBrightnessMod = function(hslColor, val, defaultColor) {        
         val /= 100;
         
         if (hslColor.l >= 0.75 || hslColor.l <= 0.25) {
             let brightnessFixes = Prefs.getValue("allowColorBrightnessFixes");
             
             // apply some dumb color brightness fixes only under certain conditions specified in prefs
-            // for all tabs or only for custom colored tabs or only for default color
-            
+            // for all colors or only for custom colors or only for default color
             if (brightnessFixes == 1
                 || (brightnessFixes == 2 && defaultColor)
                 || (brightnessFixes == 3 && !defaultColor)) {
-                
-                // stupid variable mixing so it makes some brightness changes
+                // this stupid mixing makes colors look better and less affected by brightness limits in prefs
                 let d = Math.abs(hslColor.l - val);
                 let n = d < val ? (val - d) * d * 2 : (d - val) * val * 2;
                 
@@ -31,8 +28,8 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
         return val;
     };
 
+    // creates HTML background-image gradient with specific parameters
     this.createGradient = function(hslColor, fadingRange, fadingPower, appendDarkLine) {
-        // creates gradient with specific parameters
         let mainColor = hslColor.getHTMLColor();
         let gradientBody = null;
         let direction = null;
@@ -40,37 +37,30 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
         switch (Prefs.getValue("tabFadingStyle")) {
             case 1: {
                 direction = "to bottom";
-                break;
-            }
-            
+            } break;
             case 2: {
                 direction = "to top";
-                break;
-            }
-           
+            } break;
             case 3: {
                 direction = "to right";
-                break;
-            }
-            
+            } break;
             case 4: {
                 direction = "to left";
-                break;
-            }
+            } break;
         }
         
         if (direction) {
             let fadingColor = Prefs.getValue("tabFadingColor");
-            gradientBody = direction + "," + fadingColor + " " + fadingRange
-                           + "%," + mainColor + " " + (fadingPower * 5 + fadingRange) + "%";
+            gradientBody = direction + "," + fadingColor + " " + fadingRange + "%,"
+                         + mainColor + " " + (fadingPower * 5 + fadingRange) + "%";
         } else {
             gradientBody = mainColor + "," + mainColor;
         }
         
-        // appends dark line at the bottom, this is used as a visual separator for inactive tab gradients 
-        let result = appendDarkLine ?
-            "linear-gradient(to top,rgba(26,26,26,0.4) 1px,transparent 1px)," + "linear-gradient(" + gradientBody + ")"
-          : "linear-gradient(" + gradientBody + ")";
+        // append dark line is used as a visual separator for inactive tab gradients at their bottoms
+        let result = appendDarkLine ? "linear-gradient(to top,rgba(26,26,26,0.4) 1px,transparent 1px),"
+                                    + "linear-gradient(" + gradientBody + ")"
+                                    : "linear-gradient(" + gradientBody + ")";
         
         return result;
     };
@@ -79,8 +69,10 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
         let deferred = Promise.defer();
         
         let xhtmlNS = "http://www.w3.org/1999/xhtml";
-        let doc = WindowMediator.getMostRecentWindow("navigator:browser").document;
-        let img = doc.createElementNS(xhtmlNS, "img"); // create some img element inside some random window
+        
+        // create an img element inside most recent window
+        let doc = Services.wm.getMostRecentWindow("navigator:browser").document;
+        let img = doc.createElementNS(xhtmlNS, "img");
         
         img.onload = function() {
             let canvas = doc.createElementNS(xhtmlNS, "canvas");
@@ -104,22 +96,22 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
         return deferred.promise;
     };
 
+    // this method contains a terrible algorithm of getting dominant RGB color of an image
     this.getImageRGBColor = function(imgPixelData) {
-        // this is a terrible algorithm of getting dominant RGB color of an image
         let rgbColorEntries = []; // keep entries of already captured colors in the image
         let pixelArray = imgPixelData.data;
         let totalPixels = imgPixelData.width * imgPixelData.height;
-        let pixelRGBAColor = new RGBColor(); // temporary RGB color extended by alpha property
+        let pixelRGBAColor = new RGBColor(); // temporary RGB color extended by Alpha property
         
-        for (let i = 0; i < totalPixels; i += 2) { // accuracy ~ every second pixel, it's faster and still enough
-            let index = i * 4; // every pixel consists of three values R, G, B and Alpha.
+        for (let i = 0; i < totalPixels; i += 2) { // every second pixel for performance reasons
+            let index = i * 4; // every pixel consists of four values - R, G, B and Alpha
             pixelRGBAColor.r = pixelArray[index];
             pixelRGBAColor.g = pixelArray[index + 1];
             pixelRGBAColor.b = pixelArray[index + 2];
             pixelRGBAColor.a = pixelArray[index + 3];
             
             if (pixelRGBAColor.a < 128 || pixelRGBAColor.isImproper()) {
-                continue; // ignore this pixel if alpha is too low and color is not satysfying
+                continue; // ignore this pixel if alpha is too low and color is not satisfying
             }
             
             let hit = false;
@@ -131,14 +123,14 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
                          + Math.abs(rgbColorEntry.rgbColor.b - pixelRGBAColor.b);
                          
                 if (diff < 45) {
-                    // if difference is lower than 45 it means that this color is similar...
-                    rgbColorEntry.hits++; // ...so we bump its hit counter
-                    hit = true; // set mark flag to true
+                    // if difference is lower than 45 it means that this color is similar
+                    rgbColorEntry.hits++; // bump its hit counter then
+                    hit = true; // and set occurrence flag to true
                 }
             }
             
             if (!hit) {
-                // if there were no hits (none of existing colors was similar) we add a new entry for this color
+                // if there were no hits - none of existing colors was similar - add a new entry for this color
                 let rgbColorEntry = {};
                 rgbColorEntry.hits = 1;
                 rgbColorEntry.rgbColor = new RGBColor(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b);
@@ -149,7 +141,8 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
         let mostHits = 0;
         let mostHitRGBColor = null;
         
-        for (let rgbColorEntry of rgbColorEntries) { // find most hit color...
+        // find most hit color
+        for (let rgbColorEntry of rgbColorEntries) {
             if (rgbColorEntry.hits > mostHits) {
                 mostHits = rgbColorEntry.hits;
                 mostHitRGBColor = rgbColorEntry.rgbColor;
@@ -162,27 +155,23 @@ let _Gfx = function(Prefs, RGBColor, RGBColorStore) {
             imgRGBColor.loadFromRGBColor(mostHitRGBColor);
         }
         
-        return imgRGBColor; // ... return either most hit color or empty color if something went wrong
+        return imgRGBColor;
     };
 
     this.getFaviconRGBColor = function(faviconSrc) {
         let deferred = Promise.defer();
-        let rgbColor = RGBColorStore.getItem(faviconSrc); // try to get RGB color for this source from cache
+        
+        // try to get RGB color for this source from cache
+        let rgbColor = RGBColorStore.getItem(faviconSrc);
         
         if (rgbColor) {
-            // if getting from cache successful
-            //console.log("favicon: " + faviconSrc + ", rgb color from cache: " + rgbColor.getHTMLColor());
             deferred.resolve(rgbColor);
         } else {
+            // if there was no RGB color for this source in cache
             let gfx = this;
-            // if there is no RGB color for this source
             this.getImagePixelData(faviconSrc).then(function(imgPixelData) {
-                // this is executed when image pixels returned successfully
                 rgbColor = gfx.getImageRGBColor(imgPixelData); // get RGB color for image pixel data
                 RGBColorStore.addItem(faviconSrc, rgbColor); // add this color to cache
-                
-                //console.log("favicon: " + faviconSrc + ", new rgb color: " + rgbColor.getHTMLColor());
-                
                 deferred.resolve(rgbColor);
             }, function() {
                 deferred.reject();

@@ -1,15 +1,15 @@
-let EXPORTED_SYMBOLS = ["_TabHandlers"];
+let EXPORTED_SYMBOLS = ["TabHandlers"];
 
 Components.utils.import("resource://gre/modules/Promise.jsm");
 
-let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars) {
+let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars) {
     this.TabHandler = function(tab) { 
         this.tab = tab;
-        this.tabId = cmtTabId + String.split(tab.linkedPanel, "panel").pop(); // extract only number from "linkedpanel123123123"
+        this.tabId = cmtTabId + String.split(tab.linkedPanel, "panel").pop(); // extract only number from "panel123123123"
         tab.setAttribute("id", this.tabId); // set custom id for recognition purposes
         
         this.cssRules = []; // this will keep actual DOM CSS rule references
-        this.deferredColorAssignment = null; // if set it means that color assignment is still executed
+        this.deferredColorAssignment = null; // not null - color assignment is still being executed
         this.activeTabHSLColor = new HSLColor(); // this will be used to set color of an indication bar
         
         // initially let it be a default color
@@ -36,8 +36,8 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
         });
         
         this.mutationObserver.observe(tab, {
-            attributes: true, // yes we are interested in attributes
-            attributeFilter: ["image", "selected"] // especially "image" and "selected" change
+            attributes: true, // yes, interested in attributes
+            attributeFilter: ["image", "selected"] // especially when "image" and "selected" change
         });
     };
 
@@ -45,26 +45,26 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
         let deferred = Promise.defer();
         
         if (this.deferredColorAssignment) {
-            this.deferredColorAssignment.reject(); // stop previous method execution
+            this.deferredColorAssignment.reject(); // stop previous method deferred execution
         }
         
-        this.deferredColorAssignment = deferred; // replace the reference with this executed right now
+        this.deferredColorAssignment = deferred; // replace the reference with this method executed right now
         
         if (this.tab.hasAttribute("image")) {
-            let faviconSrc = this.tab.getAttribute("image"); // if tab has an image we will take its address
+            let faviconSrc = this.tab.getAttribute("image"); // if tab has an image then take its address
             let tabHandler = this;
 
             Gfx.getFaviconRGBColor(faviconSrc).then(function(rgbColor) {
-                // this is executed when function successfully finds an RGB color
-                tabHandler.deferredColorAssignment = null; // reset this reference, as this method is finished
+                // when function successfully returns an RGB color
+                tabHandler.deferredColorAssignment = null; // nullify as this method is finished
                 deferred.resolve(rgbColor);
             });
         } else {
-            let defaultColor = new RGBColor(); // if tab has no image we will create a new RGB color
-            defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor")); // and load the default color from preferences
+            let defaultColor = new RGBColor(); // if tab has no image then create a new RGB color
+            defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor")); // load default color value from prefs
             defaultColor["isDefaultColor"] = true; // append this property to mark that it's a default color
             
-            this.deferredColorAssignment = null; // reset this reference, as this method is finished
+            this.deferredColorAssignment = null; // nullify as this method is finished
             deferred.resolve(defaultColor);
         }
 
@@ -81,24 +81,24 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
             let inactiveTabCSSRule = new CSSRules.InactiveTabCSSRule(this.tabId, rgbColor, defaultColor);
             let hoveredTabCSSRule = new CSSRules.HoveredTabCSSRule(this.tabId, rgbColor, defaultColor);
             
-            this.activeTabHSLColor.loadFromHSLColor(activeTabCSSRule.hslColor); // keep active tab color for indication bar...
+            this.activeTabHSLColor.loadFromHSLColor(activeTabCSSRule.hslColor); // keep active tab color for indication bar
             
             if (this.tab.selected) {
-                IndicationBars.changeColorForWindow(tabWindow, activeTabCSSRule.hslColor.getHTMLColor()); // ...and change its color if tab is selected
+                IndicationBars.changeColorForWindow(tabWindow, activeTabCSSRule.hslColor.getHTMLColor()); // and change its color if tab is selected
             }
             
             if (this.cssRules.length > 0) {
-                // if there is at least one applied CSS rule reference for this tab...
-                let cssRuleIndex = StyleSheets.getCSSRuleIndex(styleSheet, this.cssRules[0]); // ...get index of the first one
+                // if there is at least one applied CSS rule reference for this tab
+                let cssRuleIndex = StyleSheets.getCSSRuleIndex(styleSheet, this.cssRules[0]); // get index of the first one
                 
                 if (cssRuleIndex) {
                     // CSS rules are always applied and inserted into the list consecutively
                     activeTabCSSRule.apply(styleSheet, cssRuleIndex);
-                    inactiveTabCSSRule.apply(styleSheet, cssRuleIndex + 1); // ...so just increase indices
-                    hoveredTabCSSRule.apply(styleSheet, cssRuleIndex + 2); // ...
+                    inactiveTabCSSRule.apply(styleSheet, cssRuleIndex + 1); // just increase index to get next one
+                    hoveredTabCSSRule.apply(styleSheet, cssRuleIndex + 2); // just increase index to get next one
                 }
             } else {
-                // if there are no CSS rules stored it means that they must be firstly applied and then stored
+                // if there are no CSS rules stored - they must be firstly applied and then their references stored
                 this.cssRules.push(activeTabCSSRule.apply(styleSheet));
                 this.cssRules.push(inactiveTabCSSRule.apply(styleSheet));
                 this.cssRules.push(hoveredTabCSSRule.apply(styleSheet));
@@ -116,7 +116,8 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
             
             if (cssRuleIndex) {
                 for (let rule of this.cssRules) {
-                    // after each deletion the list shifts but the index variable stays the same and points to a next rule
+                    // after each deletion the list shifts but the index value stays the same
+                    // and points to a next rule
                     styleSheet.deleteRule(cssRuleIndex);
                 }
             }
@@ -128,7 +129,6 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
         let tabHandler = this;
 
         this.assignColor().then(function(rgbColor) {
-            // this is executed when color assignment is successful
             tabHandler.applyStyling(rgbColor, rgbColor.isDefaultColor);
             deferred.resolve();
         });
@@ -137,7 +137,7 @@ let _TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheet
     };
 
     this.TabHandler.prototype.clear = function() {
-        // reverts any changes for this tab
+        // reverts any changes made for this tab
         this.tab.removeAttribute("id");
         this.mutationObserver.disconnect();
         this.clearStyling();

@@ -1,8 +1,8 @@
-let EXPORTED_SYMBOLS = ["_Prefs"];
+let EXPORTED_SYMBOLS = ["Prefs"];
 
-Components.utils.import("resource://gre/modules/devtools/Console.jsm");
+Components.utils.import("resource://gre/modules/Services.jsm");
 
-let _Prefs = function(cmtName) {
+let Prefs = function(cmtName) {
     this.defaultPrefs = {
         tabDefaultColor: "#E0E0E0",
         tabFadingColor: "#F0F0F0",
@@ -40,13 +40,11 @@ let _Prefs = function(cmtName) {
     
     this.currentPrefs = {};
     
-    this.prefsBranch = Components.classes["@mozilla.org/preferences-service;1"]
-                                 .getService(Components.interfaces.nsIPrefService)
-                                 .getBranch("extensions." + cmtName + ".");
-                                
+    this.prefsBranch = Services.prefs.getBranch("extensions." + cmtName + ".");
+    
+    // loads all saved preferences into currentPrefs
+    // if a pref is not saved it's firstly saved with default value and then loaded into currentPrefs
     this.init = function() {
-        // loads all saved preferences into currentPrefs
-        // if a pref is not saved it's firstly saved with default value and then loaded into currentPrefs
         for (let prefName in this.defaultPrefs) {
             let prefNotExists = !this.prefsBranch.getPrefType(prefName);
             let prefValue = this.defaultPrefs[prefName];
@@ -58,50 +56,44 @@ let _Prefs = function(cmtName) {
                         this.prefsBranch.setCharPref(prefName, prefValue);
                     }
                     this.currentPrefs[prefName] = this.prefsBranch.getCharPref(prefName);
-                    break;
-                }
+                } break;
                 
                 case "number": {
                     if (prefNotExists) {
                         this.prefsBranch.setIntPref(prefName, prefValue);
                     }
                     this.currentPrefs[prefName] = this.prefsBranch.getIntPref(prefName);
-                    break;
-                }
+                } break;
                 
                 case "boolean": {
                     if (prefNotExists) {
                         this.prefsBranch.setBoolPref(prefName, prefValue);
                     }
                     this.currentPrefs[prefName] = this.prefsBranch.getBoolPref(prefName);
-                    break;
-                }
+                } break;
             }
         }
     };
     
-    
+    // saves all preferences stored in currentPrefs
     this.save = function() {
-        // saves all preferences stored in currentPrefs
-         for (let prefName in this.currentPrefs) {
+        
+        for (let prefName in this.currentPrefs) {
             let prefValue = this.currentPrefs[prefName];
             let prefType = typeof prefValue;
             
             switch (prefType) {
                 case "string": {
                     this.prefsBranch.setCharPref(prefName, prefValue);
-                    break;
-                }
+                } break;
                 
                 case "number": {
                     this.prefsBranch.setIntPref(prefName, prefValue);
-                    break;
-                }
+                } break;
                 
                 case "boolean": {
                     this.prefsBranch.setBoolPref(prefName, prefValue);
-                    break;
-                }
+                } break;
             }
         }   
     };
@@ -110,8 +102,8 @@ let _Prefs = function(cmtName) {
         return this.currentPrefs[prefName];
     };
     
+    // sets values for preference input fields inside preferences window
     this.feedPrefWindow = function(window, feedDefaults) {
-        // sets values for preference input fields inside preferences window
         let windowDoc = window.document;
 
         for (let prefName in this.defaultPrefs) {
@@ -131,8 +123,8 @@ let _Prefs = function(cmtName) {
         }
     };
     
+    // saves all values from preference input fields inside preferences window
     this.saveFromPrefWindow = function(window) {
-        // saves all values from preference input fields inside preferences window
         let windowDoc = window.document;
 
         for (let prefName in this.currentPrefs) {
@@ -174,15 +166,8 @@ let _Prefs = function(cmtName) {
         }
     };
     
+    // this should be overwritten to provide Windows access which is unavailable here
     this.onApply = {
-        // this should be overwritten to get Windows access which is unavailable here (terrible dependency)
-        
-        //prefs: this,
-        //saveFromPrefWindow: this.saveFromPrefWindow,
-        observe: function(aSubject, aTopic, aData) {
-            //this.saveFromPrefWindow.call(this.prefs, aSubject);
-            //Windows.clear();
-            //Windows.init();
-        }
+        observe: function(aSubject, aTopic, aData) {}
     };
 };

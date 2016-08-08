@@ -1,6 +1,6 @@
-let EXPORTED_SYMBOLS = ["_HSLColor"];
+let EXPORTED_SYMBOLS = ["HSLColor"];
 
-function _HSLColor(h, s, l) {
+function HSLColor(h, s, l) {
     if (h == undefined || s == undefined || l == undefined) {
         this.load(0, 0, 0);
     } else {
@@ -8,17 +8,17 @@ function _HSLColor(h, s, l) {
     }
 }
 
-_HSLColor.prototype.load = function(h, s, l) {
+HSLColor.prototype.load = function(h, s, l) {
     this.h = Math.min(h, 360);
     this.s = Math.min(s, 1);
     this.l = Math.min(l, 1);
 };
 
-_HSLColor.prototype.loadFromHSLColor = function(hslColor) {
+HSLColor.prototype.loadFromHSLColor = function(hslColor) {
     this.load(hslColor.h, hslColor.s, hslColor.l);
 };
 
-_HSLColor.prototype.loadFromRGBColor = function(rgbColor) {
+HSLColor.prototype.loadFromRGBColor = function(rgbColor) {
     // code adapted from http://www.rapidtables.com/convert/color/rgb-to-hsl.htm
     let r = rgbColor.r / 255;
     let g = rgbColor.g / 255;
@@ -53,6 +53,8 @@ _HSLColor.prototype.loadFromRGBColor = function(rgbColor) {
     this.load(h, s, l);
 };
 
-_HSLColor.prototype.getHTMLColor = function() {
-    return "hsl(" + Math.round(this.h) + "," + Math.round(this.s * 100) + "%," + Math.round(this.l * 100) + "%)";
+HSLColor.prototype.getHTMLColor = function() {
+    return "hsl(" + Math.round(this.h) + ","
+                  + Math.round(this.s * 100) + "%,"
+                  + Math.round(this.l * 100) + "%)";
 };

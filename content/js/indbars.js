@@ -1,13 +1,14 @@
-let EXPORTED_SYMBOLS = ["_IndicationBars"];
+let EXPORTED_SYMBOLS = ["IndicationBars"];
 
-let _IndicationBars = function(StyleSheets, CSSRules, cmtIndBarId, Prefs) {
+let IndicationBars = function(StyleSheets, CSSRules, cmtIndBarId, Prefs) {
     this.init = function(window) {
         if (Prefs.getValue("showIndicationBar")) {
             let navToolbox = window.document.getElementById("navigator-toolbox");
             let tabContainerVisible = !window.document.getElementById("TabsToolbar").collapsed;
             
             if (navToolbox && tabContainerVisible) {
-                let indBar = window.document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "dummy");
+                let xulNS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+                let indBar = window.document.createElementNS(xulNS, "dummy");
                 
                 indBar.setAttribute("id", cmtIndBarId);
                 navToolbox.appendChild(indBar);

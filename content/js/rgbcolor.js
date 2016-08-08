@@ -1,6 +1,6 @@
-let EXPORTED_SYMBOLS = ["_RGBColor"];
+let EXPORTED_SYMBOLS = ["RGBColor"];
 
-function _RGBColor(r, g, b) {
+function RGBColor(r, g, b) {
     if (r == undefined || g == undefined || b == undefined) {
         this.load(0, 0, 0);
     } else {
@@ -8,17 +8,17 @@ function _RGBColor(r, g, b) {
     }
 }
 
-_RGBColor.prototype.load = function(r, g, b) {
+RGBColor.prototype.load = function(r, g, b) {
     this.r = Math.min(r, 255);
     this.g = Math.min(g, 255);
     this.b = Math.min(b, 255);
 };
 
-_RGBColor.prototype.loadFromRGBColor = function(rgbColor) {
+RGBColor.prototype.loadFromRGBColor = function(rgbColor) {
     this.load(rgbColor.r, rgbColor.g, rgbColor.b);
 };
 
-_RGBColor.prototype.loadFromHSLColor = function(hslColor) {
+RGBColor.prototype.loadFromHSLColor = function(hslColor) {
     // code adapted from http://www.rapidtables.com/convert/color/hsl-to-rgb.htm
     let c = (1 - Math.abs(2 * hslColor.l - 1)) * hslColor.s;
     let x = c * (1 - Math.abs((hslColor.h / 60) % 2 - 1));
@@ -62,7 +62,7 @@ _RGBColor.prototype.loadFromHSLColor = function(hslColor) {
     this.load(r, g, b);
 };
 
-_RGBColor.prototype.loadFromHTMLColor = function(htmlColor) {
+RGBColor.prototype.loadFromHTMLColor = function(htmlColor) {
     let regexMatches = null;
     let r = 0, g = 0, b = 0;
     
@@ -79,12 +79,12 @@ _RGBColor.prototype.loadFromHTMLColor = function(htmlColor) {
     this.load(r, g, b);
 };
 
-_RGBColor.prototype.getHTMLColor = function() {
+RGBColor.prototype.getHTMLColor = function() {
     return "rgb(" + this.r + "," + this.g + "," + this.b + ")";
 };
 
-_RGBColor.prototype.isImproper = function() {
+RGBColor.prototype.isImproper = function() {
     return (this.r > 220 && this.g > 220 && this.b > 220
-            || ((this.r < 70 && this.g < 70 && this.b < 70)
-                && Math.max(this.r, this.g, this.b) - Math.min(this.r, this.g, this.b) < 35));
+        || ((this.r < 70 && this.g < 70 && this.b < 70)
+            && Math.max(this.r, this.g, this.b) - Math.min(this.r, this.g, this.b) < 35));
 };

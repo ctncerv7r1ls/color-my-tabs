@@ -1,29 +1,34 @@
-let EXPORTED_SYMBOLS = ["_Windows"];
+let EXPORTED_SYMBOLS = ["Windows"];
 
-let WindowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+Components.utils.import("resource://gre/modules/Services.jsm");
 
-let _Windows = function(StyleSheets, IndicationBars, Tabs) {
+let Windows = function(StyleSheets, IndicationBars, Tabs) {
     this.windowListener = {
         onOpenWindow: function(nsIObj) {
-            let domWindow = nsIObj.QueryInterface(Components.interfaces.nsIInterfaceRequestor).getInterface(Components.interfaces.nsIDOMWindow);
+            let domWindow = nsIObj.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                                  .getInterface(Components.interfaces.nsIDOMWindow);
             
-            // window is useful only after DOM has been loaded so we must put proper methods in a temporary load event listener
+            // window is useful only after DOM has been loaded so we must put proper methods
+            // in a temporary one-time load event listener
             domWindow.addEventListener("load", function() {
                 domWindow.removeEventListener("load", arguments.callee, false);
-                domWindow.setTimeout( function() {
-                    // execute only it this is a real browser window, not some kind of alert etc.
+                domWindow.setTimeout(function() {
+                    
+                    // only it this is a browser window, not some kind of alert etc.
                     if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser") {
                         StyleSheets.init(domWindow);
                         IndicationBars.init(domWindow);
                         Tabs.init(domWindow);
                     }
-                }, 0, domWindow );
+                }, 0, domWindow);
             }, false);
         },
         
         onCloseWindow: function(nsIObj) {
-            let domWindow = nsIObj.QueryInterface(Components.interfaces.nsIInterfaceRequestor).getInterface(Components.interfaces.nsIDOMWindow);
-            // execute only it this is a real browser window, not some kind of alert etc.
+            let domWindow = nsIObj.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                                  .getInterface(Components.interfaces.nsIDOMWindow);
+            
+            // only it this is a browser window, not some kind of alert etc.
             if (domWindow.document.documentElement.getAttribute("windowtype") === "navigator:browser") {
                 StyleSheets.clear(domWindow);
                 IndicationBars.clear(domWindow);
@@ -33,7 +38,7 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
     };
 
     this.init = function() {          
-        let windowsEnumerator = WindowMediator.getEnumerator("navigator:browser");
+        let windowsEnumerator = Services.wm.getEnumerator("navigator:browser");
         
         while (windowsEnumerator.hasMoreElements()) {
             let window = windowsEnumerator.getNext().QueryInterface(Components.interfaces.nsIDOMWindow);
@@ -43,13 +48,13 @@ let _Windows = function(StyleSheets, IndicationBars, Tabs) {
             Tabs.init(window);
         }
         
-        WindowMediator.addListener(this.windowListener);
+        Services.wm.addListener(this.windowListener);
     };
     
     this.clear = function() {
-        WindowMediator.removeListener(this.windowListener);
+        Services.wm.removeListener(this.windowListener);
         
-        let windowsEnumerator = WindowMediator.getEnumerator("navigator:browser");
+        let windowsEnumerator = Services.wm.getEnumerator("navigator:browser");
         
         while (windowsEnumerator.hasMoreElements()) {
             let window = windowsEnumerator.getNext().QueryInterface(Components.interfaces.nsIDOMWindow);

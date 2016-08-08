@@ -1,13 +1,13 @@
-let EXPORTED_SYMBOLS = ["_Store"];
+let EXPORTED_SYMBOLS = ["Store"];
 
-function _Store(maxItems) {
+function Store(maxItems) {
     this.items = {};
     this.itemsCounter = 0;
     this.maxItems = maxItems;
 }
 
-_Store.prototype.addItem = function(key, item) {
-    // add item and if limit is reached remove some item and overwrite it
+// add item and if limit is reached remove some item and overwrite it
+Store.prototype.addItem = function(key, item) {
     if (!this.maxItems || this.itemsCounter < this.maxItems) {
         this.items[key] = item;
     } else {
@@ -18,8 +18,8 @@ _Store.prototype.addItem = function(key, item) {
     this.itemsCounter++;
 };
 
-_Store.prototype.removeItem = function(key, processItem) {
-    // processItem is a function called before item removal
+// processItem is a function called before item removal
+Store.prototype.removeItem = function(key, processItem) {
     if (key && this.items[key]) {
         if (processItem) {
             processItem(this.items[key]);
@@ -33,8 +33,8 @@ _Store.prototype.removeItem = function(key, processItem) {
     this.itemsCounter--;
 };
 
-_Store.prototype.removeAllItems = function(processItem) {
-    // processItem is a function called before each item removal
+// processItem is a function called before each item removal
+Store.prototype.removeAllItems = function(processItem) {
     for (let item in this.items) {
         if (this.items[item]) {
             if (processItem) {
@@ -48,8 +48,8 @@ _Store.prototype.removeAllItems = function(processItem) {
     this.itemsCounter = 0;
 };
 
-_Store.prototype.processAllItems = function(processItem) {
-    // processItem is a function called for every item
+// processItem is a function called for every item
+Store.prototype.processAllItems = function(processItem) {
     if (processItem) {
         for (let item in this.items) {
             if (this.items[item]) {
@@ -59,6 +59,6 @@ _Store.prototype.processAllItems = function(processItem) {
     }
 };
     
-_Store.prototype.getItem = function(key) {
+Store.prototype.getItem = function(key) {
     return this.items[key];
 };
