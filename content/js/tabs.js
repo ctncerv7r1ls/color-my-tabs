@@ -45,7 +45,7 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
             }
         }
         
-        tabBrowser.tabContainer.removeEventListener("TabOpen", this.onTabOpen, false);
-        tabBrowser.tabContainer.removeEventListener("TabClose", this.onTabClose, false);
+        tabBrowser.tabContainer.removeEventListener("TabOpen", this.onOpen, false);
+        tabBrowser.tabContainer.removeEventListener("TabClose", this.onClose, false);
     };
 };
