@@ -103,7 +103,14 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
         let totalPixels = imgPixelData.width * imgPixelData.height;
         let pixelRGBAColor = new RGBColor(); // temporary RGB color extended by Alpha property
         
-        for (let i = 0; i < totalPixels; i += 2) { // every second pixel for performance reasons
+        let colorLookupPrecision = Prefs.getValue("morePreciseColorLookup") ? 1 : 2;
+        let minColorAlpha = Prefs.getValue("minColorAlpha");
+        let tooBrightRGBSet = Prefs.getValue("tooBrightRGBSet");
+        let tooDarkRGBSet = Prefs.getValue("tooDarkRGBSet");
+        let exceptionRGBPeakToPeak = Prefs.getValue("exceptionRGBPeakToPeak");
+        let maxDiffBetweenSimilarColors = Prefs.getValue("maxDiffBetweenSimilarColors");
+        
+        for (let i = 0; i < totalPixels; i += colorLookupPrecision) { // += 1 or 2, depends on precision
             let index = i * 4; // every pixel consists of four values - R, G, B and Alpha
             pixelRGBAColor.r = pixelArray[index];
             pixelRGBAColor.g = pixelArray[index + 1];
@@ -111,11 +118,11 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
             pixelRGBAColor.a = pixelArray[index + 3];
             
             // ignore this pixel if alpha is too low and color is not satisfying
-            if (pixelRGBAColor.a < 128 ||
-               (pixelRGBAColor.r > 220 && pixelRGBAColor.g > 220 && pixelRGBAColor.b > 220 ||
-               ((pixelRGBAColor.r < 70 && pixelRGBAColor.g < 70 && pixelRGBAColor.b < 70) &&
-               Math.max(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b) -
-               Math.min(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b) < 35))) {
+            if (pixelRGBAColor.a < minColorAlpha ||
+                (pixelRGBAColor.r > tooBrightRGBSet && pixelRGBAColor.g > tooBrightRGBSet && pixelRGBAColor.b > tooBrightRGBSet ||
+                 ((pixelRGBAColor.r < tooDarkRGBSet && pixelRGBAColor.g < tooDarkRGBSet && pixelRGBAColor.b < tooDarkRGBSet) &&
+                  Math.max(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b) -
+                  Math.min(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b) < exceptionRGBPeakToPeak))) {
                 continue;
              }
             
@@ -127,8 +134,8 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
                          + Math.abs(rgbColorEntry.rgbColor.g - pixelRGBAColor.g)
                          + Math.abs(rgbColorEntry.rgbColor.b - pixelRGBAColor.b);
                          
-                if (diff < 45) {
-                    // if difference is lower than 45 it means that this color is similar
+                if (diff < maxDiffBetweenSimilarColors) {
+                    // if difference is lower than that it means that this color is similar
                     rgbColorEntry.hits++; // bump its hit counter then
                     hit = true; // and set occurrence flag to true
                 }
