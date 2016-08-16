@@ -58,6 +58,7 @@ function startup(data, reason) {
         observe: function(aSubject, aTopic, aData) {
             Prefs.saveFromPrefWindow(aSubject); // aSubject is a DOMWindow instance
             Windows.clear();
+            RGBColorStore.removeAllItems(); // remove any cached colors - advanced prefs affect them
             Windows.init();
         }
     };
