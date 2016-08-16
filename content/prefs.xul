@@ -33,6 +33,7 @@
     <tabs>
       <tab label="General"/>
       <tab label="Tabs appearance"/>
+      <tab label="Advanced"/>
     </tabs>
     
     <tabpanels flex="1">
@@ -182,6 +183,58 @@
               </row>
             </rows>
           </grid>
+        </vbox>
+      </tabpanel>
+      
+      <tabpanel>
+        <vbox flex="1">
+          <hbox flex="0" align="center">
+            <checkbox id="morePreciseColorLookup" label="More precise dominant color lookup"/>
+          </hbox>
+          
+          <spacer flex="0" height="15"/>
+          
+          <hbox flex="0" align="center">
+            <label value="Minimum alpha for capturable colors"/>
+            <spacer flex="1"/>
+            <textbox id="minColorAlpha" type="number" width="40" min="0" max="255"/>
+            <spacer flex="10"/>
+          </hbox>
+          
+          <spacer flex="0" height="15"/>
+          
+          <hbox flex="0" align="center">
+            <label value="Too bright color RGB value set"/>
+            <spacer flex="1"/>
+            <textbox id="tooBrightRGBSet" type="number" width="40" min="0" max="255"/>
+            <spacer flex="10"/>
+          </hbox>
+          
+          <spacer flex="0" height="15"/>
+          
+          <hbox flex="0" align="center">
+            <label value="Too dark color RGB value set"/>
+            <spacer flex="1"/>
+            <textbox id="tooDarkRGBSet" type="number" width="40" min="0" max="255"/>
+            <spacer flex="10"/>
+          </hbox>
+          
+          <hbox flex="0" align="center">
+            <label value="Exceptional maximum RGB peak to peak"/>
+            <spacer flex="1"/>
+            <textbox id="exceptionRGBPeakToPeak" type="number" width="40" min="0" max="255"/>
+            <spacer flex="10"/>
+          </hbox>
+          
+          <spacer flex="0" height="15"/>
+          
+          <hbox flex="0" align="center">
+            <label value="Maximum difference between similar colors"/>
+            <spacer flex="1"/>
+            <textbox id="maxDiffBetweenSimilarColors" type="number" width="40" min="0" max="255"/>
+            <spacer flex="10"/>
+          </hbox>
+          
         </vbox>
       </tabpanel>
       
