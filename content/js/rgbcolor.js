@@ -82,9 +82,3 @@ RGBColor.prototype.loadFromHTMLColor = function(htmlColor) {
 RGBColor.prototype.getHTMLColor = function() {
     return "rgb(" + this.r + "," + this.g + "," + this.b + ")";
 };
-
-RGBColor.prototype.isImproper = function() {
-    return (this.r > 220 && this.g > 220 && this.b > 220
-        || ((this.r < 70 && this.g < 70 && this.b < 70)
-            && Math.max(this.r, this.g, this.b) - Math.min(this.r, this.g, this.b) < 35));
-};

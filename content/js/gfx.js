@@ -110,9 +110,14 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
             pixelRGBAColor.b = pixelArray[index + 2];
             pixelRGBAColor.a = pixelArray[index + 3];
             
-            if (pixelRGBAColor.a < 128 || pixelRGBAColor.isImproper()) {
-                continue; // ignore this pixel if alpha is too low and color is not satisfying
-            }
+            // ignore this pixel if alpha is too low and color is not satisfying
+            if (pixelRGBAColor.a < 128 ||
+               (pixelRGBAColor.r > 220 && pixelRGBAColor.g > 220 && pixelRGBAColor.b > 220 ||
+               ((pixelRGBAColor.r < 70 && pixelRGBAColor.g < 70 && pixelRGBAColor.b < 70) &&
+               Math.max(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b) -
+               Math.min(pixelRGBAColor.r, pixelRGBAColor.g, pixelRGBAColor.b) < 35))) {
+                continue;
+             }
             
             let hit = false;
             
