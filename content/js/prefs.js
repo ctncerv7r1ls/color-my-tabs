@@ -35,7 +35,14 @@ let Prefs = function(cmtName) {
         allowColorBrightnessFixes: 1,
         boldActiveTabTitle: true,
         showTabTitleShadow: true,
-        showIndicationBar: true
+        showIndicationBar: true,
+        
+        morePreciseColorLookup: false,
+        minColorAlpha: 128,
+        tooBrightRGBSet: 220,
+        tooDarkRGBSet: 70,
+        exceptionRGBPeakToPeak: 35,
+        maxDiffBetweenSimilarColors: 45
     };
     
     this.currentPrefs = {};
