@@ -158,23 +158,26 @@ let Prefs = function(extName) {
     };
     
     this.onOpen = {
-        prefs: this,
+        Prefs: this,
         feedPrefWindow: this.feedPrefWindow,
         observe: function(aSubject, aTopic, aData) {
-            this.feedPrefWindow.call(this.prefs, aSubject);
+            this.feedPrefWindow.call(this.Prefs, aSubject);
         }
     };
     
     this.onReset = {
-        prefs: this,
+        Prefs: this,
         feedPrefWindow: this.feedPrefWindow,
         observe: function(aSubject, aTopic, aData) {
-            this.feedPrefWindow.call(this.prefs, aSubject, true);
+            this.feedPrefWindow.call(this.Prefs, aSubject, true);
         }
     };
     
-    // this should be overwritten to provide Windows access which is unavailable here
     this.onApply = {
-        observe: function(aSubject, aTopic, aData) {}
+        Prefs: this,
+        saveFromPrefWindow: this.saveFromPrefWindow,
+        observe: function(aSubject, aTopic, aData) {
+            this.saveFromPrefWindow.call(this.Prefs, aSubject);
+        }
     };
 };

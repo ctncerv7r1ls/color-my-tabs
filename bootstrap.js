@@ -48,16 +48,6 @@ function startup(data, reason) {
     
     Windows = new Imports.Windows(StyleSheets, IndicationBars, Tabs);
     
-    // overwrite onApply method in Prefs - it'll have to call Windows methods to reinit everything
-    Prefs.onApply = {
-        observe: function(aSubject, aTopic, aData) {
-            Prefs.saveFromPrefWindow(aSubject); // aSubject is a DOMWindow instance
-            Windows.clear();
-            RGBColorStore.removeAllItems(); // remove any cached colors - advanced prefs affect them
-            Windows.init();
-        }
-    };
-    
     // init
     Prefs.init();
     Windows.init(); // this will do the rest (chained initialization)
@@ -66,6 +56,7 @@ function startup(data, reason) {
     Services.obs.addObserver(Prefs.onOpen, "cmtPrefsOpen", false);
     Services.obs.addObserver(Prefs.onReset, "cmtPrefsReset", false);
     Services.obs.addObserver(Prefs.onApply, "cmtPrefsApply", false);
+    Services.obs.addObserver(Windows.onPrefsApply, "cmtPrefsApply", false);
 }
 
 function shutdown(data, reason) {
@@ -73,6 +64,7 @@ function shutdown(data, reason) {
     Services.obs.removeObserver(Prefs.onOpen, "cmtPrefsOpen");
     Services.obs.removeObserver(Prefs.onReset, "cmtPrefsReset");
     Services.obs.removeObserver(Prefs.onApply, "cmtPrefsApply");
+    Services.obs.removeObserver(Windows.onPrefsApply, "cmtPrefsApply");
     
     // cleanup
     Windows.clear();

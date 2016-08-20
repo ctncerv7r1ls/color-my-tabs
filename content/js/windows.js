@@ -63,5 +63,15 @@ let Windows = function(StyleSheets, IndicationBars, Tabs) {
             IndicationBars.clear(window);
             Tabs.clear(window);
         }
-    }
+    };
+    
+    this.onPrefsApply = {
+        Windows: this,
+        clear: this.clear,
+        init: this.init,
+        observe: function(aSubject, aTopic, aData) {
+            this.clear.call(this.Windows);
+            this.init.call(this.Windows);
+        }
+    };
 };
