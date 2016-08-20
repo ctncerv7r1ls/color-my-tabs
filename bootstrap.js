@@ -57,6 +57,13 @@ function startup(data, reason) {
     Services.obs.addObserver(Prefs.onReset, "cmtPrefsReset", false);
     Services.obs.addObserver(Prefs.onApply, "cmtPrefsApply", false);
     Services.obs.addObserver(Windows.onPrefsApply, "cmtPrefsApply", false);
+    Services.obs.addObserver(onCacheClear, "cmtPrefsCacheClear", false);
+}
+
+function onCacheClear() {
+    if (RGBColorStore) {
+        RGBColorStore.removeAllItems();
+    }
 }
 
 function shutdown(data, reason) {
@@ -65,6 +72,7 @@ function shutdown(data, reason) {
     Services.obs.removeObserver(Prefs.onReset, "cmtPrefsReset");
     Services.obs.removeObserver(Prefs.onApply, "cmtPrefsApply");
     Services.obs.removeObserver(Windows.onPrefsApply, "cmtPrefsApply");
+    Services.obs.removeObserver(onCacheClear, "cmtPrefsCacheClear");
     
     // cleanup
     Windows.clear();

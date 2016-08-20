@@ -25,6 +25,10 @@
         Services.obs.notifyObservers(window, "cmtPrefsApply", null);
       }
       
+      function onCacheClear() {
+        Services.obs.notifyObservers(window, "cmtPrefsCacheClear", null);
+      }
+      
       window.onload = onWindowLoad;
     ]]>
   </script>
@@ -201,16 +205,12 @@
             <spacer flex="10"/>
           </hbox>
           
-          <spacer flex="0" height="15"/>
-          
           <hbox flex="0" align="center">
             <label value="Too bright color RGB value set"/>
             <spacer flex="1"/>
             <textbox id="tooBrightRGBSet" type="number" width="40" min="0" max="255"/>
             <spacer flex="10"/>
           </hbox>
-          
-          <spacer flex="0" height="15"/>
           
           <hbox flex="0" align="center">
             <label value="Too dark color RGB value set"/>
@@ -226,8 +226,6 @@
             <spacer flex="10"/>
           </hbox>
           
-          <spacer flex="0" height="15"/>
-          
           <hbox flex="0" align="center">
             <label value="Maximum difference between similar colors"/>
             <spacer flex="1"/>
@@ -235,6 +233,9 @@
             <spacer flex="10"/>
           </hbox>
           
+          <spacer flex="0" height="15"/>
+          
+          <button label="Clear colors cache before applying changes here" oncommand="onCacheClear();"/>
         </vbox>
       </tabpanel>
       
@@ -242,9 +243,9 @@
   </tabbox>
   
   <hbox style="padding: 0px 0px 5px 0px">
-    <button id="resetSettings" label="Reset values to default" oncommand="onResetSettings();"/>
+    <button label="Reset values to default" oncommand="onResetSettings();"/>
     <spacer flex="1"/>
-    <button id="applySettings" label="Apply changes" oncommand="onApplySettings();"/>
+    <button label="Apply changes" oncommand="onApplySettings();"/>
     <button label="Close" onclick="window.close();"/>
   </hbox>
   
