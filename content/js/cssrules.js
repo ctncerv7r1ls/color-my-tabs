@@ -2,8 +2,8 @@ let EXPORTED_SYMBOLS = ["CSSRules"];
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 
-let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
-    this.ActiveTabCSSRule = function(cmtTabId, rgbColor, defaultColor) {
+let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx) {
+    this.ActiveTabCSSRule = function(tabId, rgbColor, defaultColor) {
         CSSRule.call(this);
         
         let hslColor = new HSLColor();
@@ -18,7 +18,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
                                                     Prefs.getValue("activeTabFadingPower"));
         
         // actual CSS rule data
-        this.selectors = "#" + cmtTabId + "[selected]";
+        this.selectors = "#" + tabId + "[selected]";
         this.style["background-image"] = gradient + "!important";
         this.style["opacity"] = Prefs.getValue("activeTabOpacity") / 100;
         this.style["color"] = Prefs.getValue("activeTabFontColor");
@@ -32,7 +32,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         }
     };
 
-    this.InactiveTabCSSRule = function(cmtTabId, rgbColor, defaultColor) {
+    this.InactiveTabCSSRule = function(tabId, rgbColor, defaultColor) {
         CSSRule.call(this);
         
         let hslColor = new HSLColor();
@@ -45,7 +45,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
                                                     Prefs.getValue("inactiveTabFadingPower"), true);
         
         // actual CSS rule data
-        this.selectors = "#" + cmtTabId;
+        this.selectors = "#" + tabId;
         this.style["background-image"] = gradient + "!important";
         this.style["opacity"] = Prefs.getValue("inactiveTabOpacity") / 100;
         this.style["color"] = Prefs.getValue("inactiveTabFontColor");
@@ -55,7 +55,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         }
     };
 
-    this.HoveredTabCSSRule = function(cmtTabId, rgbColor, defaultColor) {
+    this.HoveredTabCSSRule = function(tabId, rgbColor, defaultColor) {
         CSSRule.call(this);
         
         let hslColor = new HSLColor();
@@ -68,7 +68,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
                                                     Prefs.getValue("hoveredTabFadingPower"), true);
         
         // actual CSS rule data
-        this.selectors = "#" + cmtTabId + ":not([selected]):hover";
+        this.selectors = "#" + tabId + ":not([selected]):hover";
         this.style["background-image"] = gradient + "!important";
         this.style["opacity"] = Prefs.getValue("hoveredTabOpacity") / 100;
         this.style["color"] = Prefs.getValue("hoveredTabFontColor");
@@ -86,11 +86,11 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         this.style["box-shadow"] = "0px 5px 10px 2px rgba(255, 255, 200, 0.9) inset";
     };
 
-    this.IndicationBarCSSRule = function() {
+    this.IndicationBarCSSRule = function(indBarId) {
         CSSRule.call(this);
 
         // actual CSS rule data
-        this.selectors = "#navigator-toolbox[tabsontop='false']>#" + cmtIndBarId;
+        this.selectors = "#navigator-toolbox[tabsontop='false']>#" + indBarId;
         this.style["height"] = "5px";
         this.style["-moz-box-ordinal-group"] = "101";
         
@@ -124,11 +124,11 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId) {
         }
     };
     
-    this.IndicationBarTabsOnTopCSSRule = function() {
+    this.IndicationBarTabsOnTopCSSRule = function(indBarId) {
         CSSRule.call(this);
         
         // actual CSS rule data
-        this.selectors = "#navigator-toolbox[tabsontop='true']>#" + cmtIndBarId;
+        this.selectors = "#navigator-toolbox[tabsontop='true']>#" + indBarId;
         this.style["height"] = "5px";
         this.style["-moz-box-ordinal-group"] = "49";
         

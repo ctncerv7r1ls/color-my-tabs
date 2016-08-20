@@ -1,12 +1,14 @@
 let EXPORTED_SYMBOLS = ["StyleSheets"];
 
-let StyleSheets = function(cmtStyleSheetId, CSSRules) {
+let StyleSheets = function(CSSRules) {
+    this.styleSheetId = "cmtStyle";
+    
     this.init = function(window) {
         let document = window.document;
         let style = document.createElementNS("http://www.w3.org/1999/xhtml", "style");
         
         style.setAttribute("type", "text/css");
-        style.setAttribute("id", cmtStyleSheetId);
+        style.setAttribute("id", this.styleSheetId);
         
         document.documentElement.appendChild(style);
         
@@ -16,7 +18,7 @@ let StyleSheets = function(cmtStyleSheetId, CSSRules) {
     };
     
     this.clear = function(window) {
-        let style = window.document.getElementById(cmtStyleSheetId);
+        let style = window.document.getElementById(this.styleSheetId);
         
         if (style) {
             window.document.documentElement.removeChild(style);
@@ -24,7 +26,7 @@ let StyleSheets = function(cmtStyleSheetId, CSSRules) {
     };
     
     this.get = function(window) {
-        let style = window.document.getElementById(cmtStyleSheetId);
+        let style = window.document.getElementById(this.styleSheetId);
         
         if (style) {
             return style.sheet;

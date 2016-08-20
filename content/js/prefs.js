@@ -2,7 +2,7 @@ let EXPORTED_SYMBOLS = ["Prefs"];
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 
-let Prefs = function(cmtName) {
+let Prefs = function(extName) {
     this.defaultPrefs = {
         tabDefaultColor: "#E0E0E0",
         tabFadingColor: "#F0F0F0",
@@ -47,7 +47,7 @@ let Prefs = function(cmtName) {
     
     this.currentPrefs = {};
     
-    this.prefsBranch = Services.prefs.getBranch("extensions." + cmtName + ".");
+    this.prefsBranch = Services.prefs.getBranch("extensions." + extName + ".");
     
     // loads all saved preferences into currentPrefs
     // if a pref is not saved it's firstly saved with default value and then loaded into currentPrefs

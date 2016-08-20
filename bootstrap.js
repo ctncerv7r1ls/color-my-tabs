@@ -1,13 +1,9 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
 
-// set some common constants
-const cmtName = "color-my-tabs";
-const cmtJSPath = "chrome://" + cmtName + "/content/js/";
-const cmtStyleSheetId = "cmtStyle";
-const cmtIndBarId = "cmtIndBar";
-const cmtTabId = "cmtTab";
+const extName = "color-my-tabs";
+const extJSPath = "chrome://" + extName + "/content/js/";
 
-// future global references from module symbols
+// future global references of module symbols
 let Prefs = null;
 let Windows = null;
 let RGBColorStore = null;
@@ -17,18 +13,18 @@ function startup(data, reason) {
     let Imports = {};
     
     // import own modules
-    Components.utils.import(cmtJSPath + "prefs.js", Imports);
-    Components.utils.import(cmtJSPath + "stylesheets.js", Imports);
-    Components.utils.import(cmtJSPath + "rgbcolor.js", Imports);
-    Components.utils.import(cmtJSPath + "hslcolor.js", Imports);
-    Components.utils.import(cmtJSPath + "store.js", Imports);
-    Components.utils.import(cmtJSPath + "gfx.js", Imports);
-    Components.utils.import(cmtJSPath + "cssrule.js", Imports);
-    Components.utils.import(cmtJSPath + "cssrules.js", Imports);
-    Components.utils.import(cmtJSPath + "indbars.js", Imports);
-    Components.utils.import(cmtJSPath + "tabhandlers.js", Imports);
-    Components.utils.import(cmtJSPath + "tabs.js", Imports);
-    Components.utils.import(cmtJSPath + "windows.js", Imports);
+    Components.utils.import(extJSPath + "prefs.js", Imports);
+    Components.utils.import(extJSPath + "stylesheets.js", Imports);
+    Components.utils.import(extJSPath + "rgbcolor.js", Imports);
+    Components.utils.import(extJSPath + "hslcolor.js", Imports);
+    Components.utils.import(extJSPath + "store.js", Imports);
+    Components.utils.import(extJSPath + "gfx.js", Imports);
+    Components.utils.import(extJSPath + "cssrule.js", Imports);
+    Components.utils.import(extJSPath + "cssrules.js", Imports);
+    Components.utils.import(extJSPath + "indbars.js", Imports);
+    Components.utils.import(extJSPath + "tabhandlers.js", Imports);
+    Components.utils.import(extJSPath + "tabs.js", Imports);
+    Components.utils.import(extJSPath + "windows.js", Imports);
     
     let RGBColor = Imports.RGBColor;
     let HSLColor = Imports.HSLColor;
@@ -40,14 +36,13 @@ function startup(data, reason) {
     RGBColorStore = new Imports.Store(500); // colors cache limited to 500 entries
     
     // create new objects from module symbols with passed dependencies
-    Prefs = new Imports.Prefs(cmtName);
+    Prefs = new Imports.Prefs(extName);
     
     let Gfx = new Imports.Gfx(Prefs, RGBColor, RGBColorStore);
-    let CSSRules = new Imports.CSSRules(CSSRule, HSLColor, Prefs, Gfx, cmtTabId, cmtIndBarId);
-    let StyleSheets = new Imports.StyleSheets(cmtStyleSheetId, CSSRules);
-    let IndicationBars = new Imports.IndicationBars(StyleSheets, CSSRules, cmtIndBarId, Prefs);
-    let TabHandlers = new Imports.TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets,
-                                              cmtTabId, IndicationBars);
+    let CSSRules = new Imports.CSSRules(CSSRule, HSLColor, Prefs, Gfx);
+    let StyleSheets = new Imports.StyleSheets(CSSRules);
+    let IndicationBars = new Imports.IndicationBars(StyleSheets, CSSRules, Prefs);
+    let TabHandlers = new Imports.TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, IndicationBars);
     
     let Tabs = new Imports.Tabs(TabHandlers, TabHandlerStore);
     
@@ -84,18 +79,18 @@ function shutdown(data, reason) {
     RGBColorStore.removeAllItems();
     
     // unload own modules
-    Components.utils.unload(cmtJSPath + "prefs.js");
-    Components.utils.unload(cmtJSPath + "stylesheets.js");
-    Components.utils.unload(cmtJSPath + "rgbcolor.js");
-    Components.utils.unload(cmtJSPath + "hslcolor.js");
-    Components.utils.unload(cmtJSPath + "store.js");
-    Components.utils.unload(cmtJSPath + "gfx.js");
-    Components.utils.unload(cmtJSPath + "cssrule.js");
-    Components.utils.unload(cmtJSPath + "cssrules.js");
-    Components.utils.unload(cmtJSPath + "indbars.js");
-    Components.utils.unload(cmtJSPath + "tabhandlers.js");
-    Components.utils.unload(cmtJSPath + "tabs.js");
-    Components.utils.unload(cmtJSPath + "windows.js");
+    Components.utils.unload(extJSPath + "prefs.js");
+    Components.utils.unload(extJSPath + "stylesheets.js");
+    Components.utils.unload(extJSPath + "rgbcolor.js");
+    Components.utils.unload(extJSPath + "hslcolor.js");
+    Components.utils.unload(extJSPath + "store.js");
+    Components.utils.unload(extJSPath + "gfx.js");
+    Components.utils.unload(extJSPath + "cssrule.js");
+    Components.utils.unload(extJSPath + "cssrules.js");
+    Components.utils.unload(extJSPath + "indbars.js");
+    Components.utils.unload(extJSPath + "tabhandlers.js");
+    Components.utils.unload(extJSPath + "tabs.js");
+    Components.utils.unload(extJSPath + "windows.js");
 }
 
 function install(data, reason) {} // dummy

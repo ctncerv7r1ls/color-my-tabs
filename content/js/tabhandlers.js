@@ -2,11 +2,13 @@ let EXPORTED_SYMBOLS = ["TabHandlers"];
 
 Components.utils.import("resource://gre/modules/Promise.jsm");
 
-let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, cmtTabId, IndicationBars) {
+let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, IndicationBars) {
+    this.tabId = "cmtTab";
+    
     this.TabHandler = function(tab) { 
         this.tab = tab;
-        this.tabId = cmtTabId + String.split(tab.linkedPanel, "panel").pop(); // extract only number from "panel123123123"
-        tab.setAttribute("id", this.tabId); // set custom id for recognition purposes
+        this.actualTabId = this.tabId + String.split(tab.linkedPanel, "panel").pop(); // extract only number from "panel123123123"
+        tab.setAttribute("id", this.actualTabId); // set custom id for recognition purposes
         
         this.cssRules = []; // this will keep actual DOM CSS rule references
         this.deferredColorAssignment = null; // not null - color assignment is still being executed
@@ -16,7 +18,6 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
         let defaultColor = new RGBColor();
         defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor"))
         this.activeTabHSLColor.loadFromRGBColor(defaultColor); 
-        
         
         let tabHandler = this;
         
@@ -77,9 +78,9 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
         
         if (styleSheet) {
             // create tab related CSS rules
-            let activeTabCSSRule = new CSSRules.ActiveTabCSSRule(this.tabId, rgbColor, defaultColor);
-            let inactiveTabCSSRule = new CSSRules.InactiveTabCSSRule(this.tabId, rgbColor, defaultColor);
-            let hoveredTabCSSRule = new CSSRules.HoveredTabCSSRule(this.tabId, rgbColor, defaultColor);
+            let activeTabCSSRule = new CSSRules.ActiveTabCSSRule(this.actualTabId, rgbColor, defaultColor);
+            let inactiveTabCSSRule = new CSSRules.InactiveTabCSSRule(this.actualTabId, rgbColor, defaultColor);
+            let hoveredTabCSSRule = new CSSRules.HoveredTabCSSRule(this.actualTabId, rgbColor, defaultColor);
             
             this.activeTabHSLColor.loadFromHSLColor(activeTabCSSRule.hslColor); // keep active tab color for indication bar
             
