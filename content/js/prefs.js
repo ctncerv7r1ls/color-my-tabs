@@ -48,6 +48,7 @@ let Prefs = function(extName) {
     this.currentPrefs = {};
     
     this.prefsBranch = Services.prefs.getBranch("extensions." + extName + ".");
+    this.syncBranch = Services.prefs.getBranch("services.sync.prefs.sync.extensions." + extName + ".");
     
     // loads all saved preferences into currentPrefs
     // if a pref is not saved it's firstly saved with default value and then loaded into currentPrefs
@@ -79,6 +80,8 @@ let Prefs = function(extName) {
                     this.currentPrefs[prefName] = this.prefsBranch.getBoolPref(prefName);
                 } break;
             }
+            
+            this.syncBranch.setBoolPref(prefName, true);
         }
     };
     
