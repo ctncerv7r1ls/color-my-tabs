@@ -38,11 +38,9 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
         
         // clear only tab handlers with tabs from currently cleared window
         for (let tab of tabBrowser.tabs) {
-            let tabHandler = TabHandlerStore.getItem(tab.linkedPanel);
-            
-            if (tabHandler) {
+            TabHandlerStore.removeItem(tab.linkedPanel, function(tabHandler) {
                 tabHandler.clear();
-            }
+            });
         }
         
         tabBrowser.tabContainer.removeEventListener("TabOpen", this.onOpen, false);
