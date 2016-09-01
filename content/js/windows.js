@@ -1,7 +1,6 @@
 let EXPORTED_SYMBOLS = ["Windows"];
 
 Components.utils.import("resource://gre/modules/Services.jsm");
-Components.utils.import("resource://gre/modules/Timer.jsm");
 
 let Windows = function(StyleSheets, IndicationBars, Tabs) {
     this.windowListener = {
@@ -66,17 +65,8 @@ let Windows = function(StyleSheets, IndicationBars, Tabs) {
         }
     };
     
-    this.onPrefsApply = {
-        Windows: this,
-        clear: this.clear,
-        init: this.init,
-        observe: function(aSubject, aTopic, aData) {
-            let that = this;
-            
-            setTimeout(function() {
-                that.clear.call(that.Windows);
-                that.init.call(that.Windows);
-            }, 150);
-        }
+    this.onPrefsApply = function() {
+        this.clear();
+        this.init();
     };
 };

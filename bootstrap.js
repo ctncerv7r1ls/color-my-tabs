@@ -8,6 +8,8 @@ let Prefs = null;
 let Windows = null;
 let RGBColorStore = null;
 
+let onPrefsApply = null;
+
 function startup(data, reason) {
     // object as a scope for imports
     let Imports = {};
@@ -55,8 +57,15 @@ function startup(data, reason) {
     // add preferences window event observers
     Services.obs.addObserver(Prefs.onOpen, "cmtPrefsOpen", false);
     Services.obs.addObserver(Prefs.onReset, "cmtPrefsReset", false);
-    Services.obs.addObserver(Prefs.onApply, "cmtPrefsApply", false);
-    Services.obs.addObserver(Windows.onPrefsApply, "cmtPrefsApply", false);
+    
+    onPrefsApply = {
+        observe: function(aSubject, aTopic, aData) {
+            Prefs.onApply.observe(aSubject, aTopic, aData);
+            Windows.onPrefsApply();
+        }
+    };
+    
+    Services.obs.addObserver(onPrefsApply, "cmtPrefsApply", false);    
     Services.obs.addObserver(onCacheClear, "cmtPrefsCacheClear", false);
 }
 
@@ -70,8 +79,7 @@ function shutdown(data, reason) {
     // remove preferences window event observers
     Services.obs.removeObserver(Prefs.onOpen, "cmtPrefsOpen");
     Services.obs.removeObserver(Prefs.onReset, "cmtPrefsReset");
-    Services.obs.removeObserver(Prefs.onApply, "cmtPrefsApply");
-    Services.obs.removeObserver(Windows.onPrefsApply, "cmtPrefsApply");
+    Services.obs.removeObserver(onPrefsApply, "cmtPrefsApply");
     Services.obs.removeObserver(onCacheClear, "cmtPrefsCacheClear");
     
     // cleanup
