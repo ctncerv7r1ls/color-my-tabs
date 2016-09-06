@@ -13,7 +13,7 @@ let IndicationBars = function(StyleSheets, CSSRules, Prefs) {
                 let indBar = window.document.createElementNS(xulNS, "dummy");
                 
                 indBar.setAttribute("id", this.indBarId);
-                navToolbox.appendChild(indBar);
+                navToolbox.insertBefore(indBar, navToolbox.firstChild);
                 
                 let styleSheet = StyleSheets.get(window);
                 
