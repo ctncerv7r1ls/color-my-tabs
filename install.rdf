@@ -10,7 +10,7 @@
   <Description about="urn:mozilla:install-manifest">
     <!-- Core Data -->
     <em:id>color-my-tabs@wsdfhjxc</em:id>
-    <em:version>2.1.3</em:version>
+    <em:version>2.1.4</em:version>
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
     <em:optionsURL>chrome://color-my-tabs/content/prefs.xul</em:optionsURL>
@@ -29,7 +29,7 @@
     <!-- Front End MetaData -->
     <em:name>Color My Tabs</em:name>
     <em:description>Colors your tabs relatively to their favicons.</em:description>
-    <em:creator>Wojciech Stachurski</em:creator>
+    <em:creator>wsdfhjxc</em:creator>
   </Description>
   
 </RDF>
