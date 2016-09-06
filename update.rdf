@@ -10,7 +10,7 @@
         <li>
           <Description>
             <!-- Add-on version -->
-            <em:version>2.1.3</em:version>
+            <em:version>2.1.4</em:version>
             
             <!-- Pale Moon -->
             <em:targetApplication>
@@ -20,7 +20,7 @@
                 <em:maxVersion>27.*</em:maxVersion>
                 
                 <!-- New .xpi location -->
-                <em:updateLink>https://github.com/wsdfhjxc/color-my-tabs/releases/download/2.1.3/color-my-tabs-2.1.3.xpi</em:updateLink>
+                <em:updateLink>https://github.com/wsdfhjxc/color-my-tabs/releases/download/2.1.4/color-my-tabs-2.1.4.xpi</em:updateLink>
                 
               </Description>
             </em:targetApplication>
