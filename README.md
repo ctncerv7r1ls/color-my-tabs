@@ -9,4 +9,4 @@ Besides Pale Moon's default theme, it should also work correctly with following 
 Pack all files (except README.md, update.rdf and build.sh) from this directory into a ZIP archive with .xpi extension. Alternatively, while on Linux, make build.sh an executable via terminal with `chmod +x build.sh` and execute it with `./build.sh`.
 
 ### Usage
-Open the .xpi file with Pale Moon or drag the .xpi file inside its window and confirm installation. Tabs should become colored. Preferences of the extension are accessible within Add-ons Manager page.
+Open the .xpi file with Pale Moon or drag the .xpi file inside its window and confirm installation. Tabs should become colored. All preferences of the extension are accessible within Add-ons Manager page.
