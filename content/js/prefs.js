@@ -9,7 +9,7 @@ let Prefs = function(extName) {
         tabFadingStyle: 1,
         
         activeTabFadingRange: 5,
-        activeTabFadingPower: 5,
+        activeTabFadingPower: 10,
         activeTabSaturation: 40,
         activeTabBrightness: 70,
         activeTabOpacity: 100,
@@ -17,7 +17,7 @@ let Prefs = function(extName) {
         activeTabFontShadowColor: "#FFFFFF",
         
         inactiveTabFadingRange: 5,
-        inactiveTabFadingPower: 5,
+        inactiveTabFadingPower: 10,
         inactiveTabSaturation: 30,
         inactiveTabBrightness: 60,
         inactiveTabOpacity: 100,
@@ -25,7 +25,7 @@ let Prefs = function(extName) {
         inactiveTabFontShadowColor: "#FFFFFF",
         
         hoveredTabFadingRange: 5,
-        hoveredTabFadingPower: 5,
+        hoveredTabFadingPower: 10,
         hoveredTabSaturation: 35,
         hoveredTabBrightness: 65,
         hoveredTabOpacity: 100,
