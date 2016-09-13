@@ -101,7 +101,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx) {
                 this.style["margin-top"] = "-3px";
             } break;
             case "kempelton-reloaded": {
-                this.style["margin-top"] = "-1px";
+                this.style["margin-top"] = "-2px";
             } break;
             case "aeromoon": {
                 this.style["margin-top"] = "-2px";
@@ -119,7 +119,19 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx) {
                 this.style["margin-top"] = "-1px";
             } break;
             case "f2tm": {
-                this.style["margin-top"] = "-4px";
+                this.style["margin-top"] = "-5px";
+            } break;
+            case "micromoon": {
+                this.style["margin-top"] = "-2px";
+            } break;
+            case "nauticalia": {
+                this.style["margin-top"] = "-5px";
+            } break;
+            case "noiamoon": {
+                this.style["margin-top"] = "-2px";
+            } break;
+            case "phoenity-rebirth": {
+                this.style["margin-top"] = "-2px";
             } break;
         }
     };
@@ -148,7 +160,16 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx) {
                 this.style["margin-top"] = "-1px";
             } break;
             case "f2tm": {
-                this.style["margin-top"] = "-4px";
+                this.style["margin-top"] = "-2px";
+            } break;
+            case "micromoon": {
+                this.style["-moz-box-ordinal-group"] = "40";
+            } break;
+            case "nauticalia": {
+                this.style["-moz-box-ordinal-group"] = "40";
+            } break;
+            case "noiamoon": {
+                this.style["margin-top"] = "-1px";
             } break;
         }
     };
