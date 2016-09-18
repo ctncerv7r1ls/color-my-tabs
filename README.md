@@ -1,5 +1,5 @@
 ## Color My Tabs
-![Preview](http://i.imgur.com/NXhqGTX.png)
+![Preview](http://i.imgur.com/NbRRftP.png)
 
 This is an extension for Pale Moon web browser which colors your tabs relatively to their favicons basing on dominant color lookup. It has some parameters which can be customized such as fading style, saturation, brightness, opacity, font colors for each tab state and also few other additional tweaks.
 
