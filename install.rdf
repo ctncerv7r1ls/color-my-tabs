@@ -15,7 +15,6 @@
     <em:bootstrap>true</em:bootstrap>
     <em:optionsURL>chrome://color-my-tabs/content/prefs.xul</em:optionsURL>
     <em:iconURL>chrome://color-my-tabs/content/icon.png</em:iconURL>
-    <em:updateURL>https://raw.githubusercontent.com/wsdfhjxc/color-my-tabs/master/update.rdf</em:updateURL>
     
     <!-- Pale Moon -->
     <em:targetApplication>
