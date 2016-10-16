@@ -37,7 +37,7 @@ let Prefs = function(extName) {
         showTabTitleShadow: true,
         showIndicationBar: true,
         
-        morePreciseColorLookup: false,
+        morePreciseColorLookup: true,
         minColorAlpha: 128,
         tooBrightRGBSet: 220,
         tooDarkRGBSet: 70,
