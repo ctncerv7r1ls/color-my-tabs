@@ -4,7 +4,7 @@ Components.utils.import("resource://gre/modules/Services.jsm");
 
 let Prefs = function(extName) {
     this.defaultPrefs = {
-        tabDefaultColor: "#E0E0E0",
+        tabDefaultColor: "#E0EAEA",
         tabFadingColor: "#F0F0F0",
         tabFadingStyle: 1,
         
