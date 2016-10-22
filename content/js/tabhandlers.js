@@ -3,11 +3,9 @@ let EXPORTED_SYMBOLS = ["TabHandlers"];
 Components.utils.import("resource://gre/modules/Promise.jsm");
 
 let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, IndicationBars) {
-    this.tabId = "cmtTab";
-    
     this.TabHandler = function(tab) { 
         this.tab = tab;
-        this.actualTabId = this.tabId + String.split(tab.linkedPanel, "panel").pop(); // extract only number from "panel123123123"
+        this.actualTabId = "cmtTab" + String.split(tab.linkedPanel, "panel").pop(); // extract only number from "panel123123123"
         tab.setAttribute("id", this.actualTabId); // set custom id for recognition purposes
         
         this.cssRules = []; // this will keep actual DOM CSS rule references
