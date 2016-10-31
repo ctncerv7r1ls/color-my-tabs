@@ -7,9 +7,7 @@ This is an extension for Pale Moon web browser which colors your tabs relatively
 Besides Pale Moon's default theme, it should also work correctly with following custom themes: Aeromoon, Camimoon, Compact Moon, Dark Moon, Darkness, DarkPitch, Fox 2 The Moon, Kempelton Reloaded, LittleMoon, MicroMoon, Modoki Moon, Moonfox3, Moonola, Nauticalia, Noia Moon, Past Modern Revisited, Phoenity Rebirth, Qute 4 PM, Qute Large, Qute Legacy, Reinheit, Tangerinemoon, Tangomoon and White Moon.
 
 ### Building
-Pack all files (except README.md and build.sh) from this directory into a ZIP archive with .xpi extension. Alternatively, while on Linux, make build.sh an executable via terminal with `chmod +x build.sh` and execute it with `./build.sh` to create the .xpi file.
+Run build.sh script in a terminal on Linux or any similar environment for Windows like Cygwin. The extension's .xpi file should appear right away in the same location.
 
 ### Usage
-The latest installable release is always available at the [Pale Moon add-ons website](https://addons.palemoon.org/extensions/appearance/color-my-tabs/).
-
-After installation tabs with favicons should become relatively colored. All detailed preferences of the extension are accessible within Add-ons Manager page.
+The latest installable release is always available at the [Pale Moon add-ons website](https://addons.palemoon.org/extensions/appearance/color-my-tabs/). After installation tabs with favicons should become relatively colored. All detailed preferences of the extension are accessible within Add-ons Manager page.
