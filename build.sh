@@ -5,5 +5,4 @@ zip -rq color-my-tabs.xpi \
     bootstrap.js \
     chrome.manifest \
     install.rdf \
-    AUTHORS \
     LICENSE
