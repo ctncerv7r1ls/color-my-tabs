@@ -10,4 +10,4 @@ Besides Pale Moon's default theme, it should also work correctly with following 
 Run build.sh script in a terminal on Linux or any similar environment for Windows like Cygwin. The extension's .xpi file should appear right away in the same location.
 
 ### Usage
-The latest installable release is always available at the [Pale Moon add-ons website](https://addons.palemoon.org/extensions/appearance/color-my-tabs/). After installation tabs with favicons should become relatively colored. All detailed preferences of the extension are accessible within Add-ons Manager page.
+After installation tabs with favicons should become relatively colored. All detailed preferences of the extension are accessible within Add-ons Manager page.
