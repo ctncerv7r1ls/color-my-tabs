@@ -80,11 +80,15 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
             canvas.height = img.height < 32 ? img.height : 32;
             
             let ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // draw the image on canvas
             
-            let imgPixelData = ctx.getImageData(0, 0, canvas.width, canvas.height); // get image pure pixels
-            
-            deferred.resolve(imgPixelData);
+            try {
+                // https://bugzilla.mozilla.org/show_bug.cgi?id=574330
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // draw the image on canvas
+                let imgPixelData = ctx.getImageData(0, 0, canvas.width, canvas.height); // get image pure pixels
+                deferred.resolve(imgPixelData);
+            } catch(e) {
+                deferred.reject();
+            }
         };
         
         img.onerror = function() {
