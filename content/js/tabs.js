@@ -1,5 +1,7 @@
 let EXPORTED_SYMBOLS = ["Tabs"];
 
+Components.utils.import("resource://gre/modules/Services.jsm");
+
 let Tabs = function(TabHandlers, TabHandlerStore) {
     this.onOpen = function(event) {
         let tab = event.target;
@@ -18,6 +20,15 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
         });
     };
     
+    this.onTabProgress = {   
+        onLinkIconAvailable: function(aBrowser) {
+            let window = Services.wm.getMostRecentWindow("navigator:browser");
+            let tab = window.gBrowser.getTabForBrowser(aBrowser);
+            let tabHandler = TabHandlerStore.getItem(tab.linkedPanel);
+            tabHandler.refresh();
+        }
+    };
+    
     this.init = function(window) {
         let tabBrowser = window.gBrowser;
         
@@ -29,6 +40,7 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
             tabHandler.refresh();
         }
         
+        tabBrowser.addTabsProgressListener(this.onTabProgress);
         tabBrowser.tabContainer.addEventListener("TabOpen", this.onOpen, false);
         tabBrowser.tabContainer.addEventListener("TabClose", this.onClose, false);
     };
@@ -43,6 +55,7 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
             });
         }
         
+        tabBrowser.removeTabsProgressListener(this.onTabProgress);
         tabBrowser.tabContainer.removeEventListener("TabOpen", this.onOpen, false);
         tabBrowser.tabContainer.removeEventListener("TabClose", this.onClose, false);
     };

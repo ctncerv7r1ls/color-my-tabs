@@ -22,9 +22,7 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
         // mutation observer reacts to changes of tab's attributes
         this.mutationObserver = new tab.ownerDocument.defaultView.MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
-                if (mutation.attributeName == "image") {
-                    tabHandler.refresh(); // refresh tab appearance when the image changes
-                } else if (tabHandler.tab.hasAttribute("selected")) {
+                if (tabHandler.tab.hasAttribute("selected")) {
                     // when tab is being selected try to change color of window related indication bar
                     if (Prefs.getValue("showIndicationBar")) {
                         let tabWindow = tab.ownerDocument.defaultView; // get window related to this tab
