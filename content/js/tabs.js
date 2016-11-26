@@ -30,7 +30,8 @@ let Tabs = function(TabHandlers, TabHandlerStore, IndicationBars) {
     this.onTabProgress = {   
         onLinkIconAvailable: function(aBrowser) {
             let window = Services.wm.getMostRecentWindow("navigator:browser");
-            let tab = window.gBrowser.getTabForBrowser(aBrowser);
+            let tab = window.gBrowser.getTabForBrowser ? window.gBrowser.getTabForBrowser(aBrowser) :
+                                                         window.gBrowser._getTabForBrowser(aBrowser);
             let tabHandler = TabHandlerStore.getItem(tab.linkedPanel);
             tabHandler.refresh();
         }
