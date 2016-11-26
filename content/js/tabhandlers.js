@@ -55,6 +55,8 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
                 // when function successfully returns an RGB color
                 tabHandler.deferredColorAssignment = null; // nullify as this method is finished
                 deferred.resolve(rgbColor);
+            }, function() {
+                deferred.reject();
             });
         } else {
             let defaultColor = new RGBColor(); // if tab has no image then create a new RGB color
@@ -122,15 +124,13 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
     };
 
     this.TabHandler.prototype.refresh = function() {
-        let deferred = Promise.defer();
         let tabHandler = this;
 
         this.assignColor().then(function(rgbColor) {
             tabHandler.applyStyling(rgbColor, rgbColor.isDefaultColor);
-            deferred.resolve();
+        }, function() {
+            return;
         });
-        
-        return deferred.promise;
     };
 
     this.TabHandler.prototype.clear = function() {
