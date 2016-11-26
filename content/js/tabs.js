@@ -2,7 +2,7 @@ let EXPORTED_SYMBOLS = ["Tabs"];
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 
-let Tabs = function(TabHandlers, TabHandlerStore) {
+let Tabs = function(TabHandlers, TabHandlerStore, IndicationBars) {
     this.onOpen = function(event) {
         let tab = event.target;
         let tabPseudoId = tab.linkedPanel; // this will be used as a reference key in store
@@ -18,6 +18,13 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
         TabHandlerStore.removeItem(tab.linkedPanel, function(tabHandler) {
             tabHandler.clear();
         });
+    };
+    
+    this.onSelect = function(event) {
+        let tab = event.target;
+        let tabWindow = tab.ownerDocument.defaultView;
+        let tabHandler = TabHandlerStore.getItem(tab.linkedPanel);
+        IndicationBars.changeColorForWindow(tabWindow, tabHandler.activeTabHSLColor.getHTMLColor());
     };
     
     this.onTabProgress = {   
@@ -43,6 +50,7 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
         tabBrowser.addTabsProgressListener(this.onTabProgress);
         tabBrowser.tabContainer.addEventListener("TabOpen", this.onOpen, false);
         tabBrowser.tabContainer.addEventListener("TabClose", this.onClose, false);
+        tabBrowser.tabContainer.addEventListener("TabSelect", this.onSelect, false);
     };
     
     this.clear = function(window) {
@@ -58,5 +66,6 @@ let Tabs = function(TabHandlers, TabHandlerStore) {
         tabBrowser.removeTabsProgressListener(this.onTabProgress);
         tabBrowser.tabContainer.removeEventListener("TabOpen", this.onOpen, false);
         tabBrowser.tabContainer.removeEventListener("TabClose", this.onClose, false);
+        tabBrowser.tabContainer.removeEventListener("TabSelect", this.onSelect, false);
     };
 };

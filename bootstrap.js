@@ -46,7 +46,7 @@ function startup(data, reason) {
     let IndicationBars = new Imports.IndicationBars(StyleSheets, CSSRules, Prefs);
     let TabHandlers = new Imports.TabHandlers(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets, IndicationBars);
     
-    let Tabs = new Imports.Tabs(TabHandlers, TabHandlerStore);
+    let Tabs = new Imports.Tabs(TabHandlers, TabHandlerStore, IndicationBars);
     
     Windows = new Imports.Windows(StyleSheets, IndicationBars, Tabs);
     

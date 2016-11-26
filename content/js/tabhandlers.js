@@ -16,26 +16,6 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
         let defaultColor = new RGBColor();
         defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor"))
         this.activeTabHSLColor.loadFromRGBColor(defaultColor); 
-        
-        let tabHandler = this;
-        
-        // mutation observer reacts to changes of tab's attributes
-        this.mutationObserver = new tab.ownerDocument.defaultView.MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (tabHandler.tab.hasAttribute("selected")) {
-                    // when tab is being selected try to change color of window related indication bar
-                    if (Prefs.getValue("showIndicationBar")) {
-                        let tabWindow = tab.ownerDocument.defaultView; // get window related to this tab
-                        IndicationBars.changeColorForWindow(tabWindow, tabHandler.activeTabHSLColor.getHTMLColor());
-                    }
-                }
-            });
-        });
-        
-        this.mutationObserver.observe(tab, {
-            attributes: true, // yes, interested in attributes
-            attributeFilter: ["image", "selected"] // especially when "image" and "selected" change
-        });
     };
 
     this.TabHandler.prototype.assignColor = function() {
@@ -136,7 +116,6 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
     this.TabHandler.prototype.clear = function() {
         // reverts any changes made for this tab
         this.tab.removeAttribute("id");
-        this.mutationObserver.disconnect();
         this.clearStyling();
     };
 };
