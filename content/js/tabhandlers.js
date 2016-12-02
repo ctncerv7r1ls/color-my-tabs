@@ -16,6 +16,8 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
         let defaultColor = new RGBColor();
         defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor"))
         this.activeTabHSLColor.loadFromRGBColor(defaultColor); 
+        
+        this.lastImage = tab.image;
     };
 
     this.TabHandler.prototype.assignColor = function() {
