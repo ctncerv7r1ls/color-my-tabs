@@ -17,7 +17,17 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
         defaultColor.loadFromHTMLColor(Prefs.getValue("tabDefaultColor"))
         this.activeTabHSLColor.loadFromRGBColor(defaultColor); 
         
-        this.lastImage = tab.image;
+        let tabHandler = this;
+        
+        // mutation observer reacts to changes of tab's attributes
+        this.mutationObserver = new tab.ownerDocument.defaultView.MutationObserver(function(mutations) {
+            tabHandler.refresh(); // refresh tab appearance when the image changes
+        });
+        
+        this.mutationObserver.observe(tab, {
+            attributes: true, // yes, interested in attributes
+            attributeFilter: ["image"] // especially when image changes
+        });
     };
 
     this.TabHandler.prototype.assignColor = function() {
@@ -118,6 +128,8 @@ let TabHandlers = function(Prefs, HSLColor, RGBColor, CSSRules, Gfx, StyleSheets
     this.TabHandler.prototype.clear = function() {
         // reverts any changes made for this tab
         this.tab.removeAttribute("id");
+        this.mutationObserver.disconnect();
+        this.mutationObserver = undefined;
         this.clearStyling();
     };
 };

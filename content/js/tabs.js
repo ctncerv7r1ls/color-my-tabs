@@ -1,7 +1,5 @@
 let EXPORTED_SYMBOLS = ["Tabs"];
 
-Components.utils.import("resource://gre/modules/Services.jsm");
-
 let Tabs = function(TabHandlers, TabHandlerStore, IndicationBars) {
     this.onOpen = function(event) {
         let tab = event.target;
@@ -27,15 +25,6 @@ let Tabs = function(TabHandlers, TabHandlerStore, IndicationBars) {
         IndicationBars.changeColorForWindow(tabWindow, tabHandler.activeTabHSLColor.getHTMLColor());
     };
     
-    this.onAttributeModified = function(event) {
-        let tab = event.target;
-        let tabHandler = TabHandlerStore.getItem(tab.linkedPanel);
-        if (tab.image != tabHandler.lastImage) {
-            tabHandler.lastImage = tab.image;
-            tabHandler.refresh();
-        }
-    };
-    
     this.init = function(window) {
         let tabBrowser = window.gBrowser;
         
@@ -50,7 +39,6 @@ let Tabs = function(TabHandlers, TabHandlerStore, IndicationBars) {
         tabBrowser.tabContainer.addEventListener("TabOpen", this.onOpen, false);
         tabBrowser.tabContainer.addEventListener("TabClose", this.onClose, false);
         tabBrowser.tabContainer.addEventListener("TabSelect", this.onSelect, false);
-        tabBrowser.tabContainer.addEventListener("TabAttrModified", this.onAttributeModified, false);
     };
     
     this.clear = function(window) {
@@ -66,6 +54,5 @@ let Tabs = function(TabHandlers, TabHandlerStore, IndicationBars) {
         tabBrowser.tabContainer.removeEventListener("TabOpen", this.onOpen, false);
         tabBrowser.tabContainer.removeEventListener("TabClose", this.onClose, false);
         tabBrowser.tabContainer.removeEventListener("TabSelect", this.onSelect, false);
-        tabBrowser.tabContainer.removeEventListener("TabAttrModified", this.onAttributeModified, false);
     };
 };
