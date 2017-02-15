@@ -4,10 +4,7 @@
   xmlns:html="http://www.w3.org/1999/xhtml"
   id="cmtPrefs"
   title="Color My Tabs preferences" 
-  style="min-width: 380px; min-height: 300px;
-    background-image: linear-gradient(to left, rgba(255, 153, 204, 0.1),
-    rgba(153, 204, 0, 0.1), rgba(51, 102, 255, 0.1), rgba(255, 255, 0, 0.1),
-    rgba(215, 0, 0, 0.1));">
+  style="min-width: 410px; min-height: 300px;">
   
   <script type="application/x-javascript">
     <![CDATA[
@@ -36,7 +33,7 @@
   <tabbox id="tabbox" flex="1" style="padding: 5px">
     <tabs>
       <tab label="General"/>
-      <tab label="Tabs appearance"/>
+      <tab label="Detailed appearance"/>
       <tab label="Advanced"/>
     </tabs>
     
@@ -44,18 +41,15 @@
       <tabpanel>
         <vbox flex="1">
           <hbox flex="0" align="center">
-            <label value="Tab default color"/>
+            <label value="Tab default color (HTML format)"/>
             <spacer flex="1"/>
             <textbox id="tabDefaultColor" style="text-align: center;" width="80"/>
-            <spacer flex="10"/>
           </hbox>
           
-          <spacer flex="0" height="15"/>
           <hbox flex="0" align="center">
             <label value="Tab fading color"/>
             <spacer flex="1"/>
             <textbox id="tabFadingColor" style="text-align: center;" width="80"/>
-          <spacer flex="10"/> 
           </hbox>
           
           <hbox flex="0" align="center">
@@ -70,13 +64,12 @@
                 <menuitem value="5" label="disable"/>
               </menupopup>
             </menulist>
-            <spacer flex="10"/>
           </hbox>
           
           <spacer flex="0" height="15"/>
           
           <hbox flex="0" align="center">
-            <label value="Tab brightness correction"/>
+            <label value="Color brightness correction"/>
             <spacer flex="1"/>
             <menulist id="allowColorBrightnessFixes">
               <menupopup>
@@ -86,7 +79,6 @@
                 <menuitem value="4" label="disable"/>
               </menupopup>
             </menulist>
-            <spacer flex="2"/>
           </hbox>
           
           <spacer flex="0" height="15"/>
@@ -127,63 +119,63 @@
                 <hbox flex="0" align="center">
                   <label value="Fading range"/>
                 </hbox>
-                <textbox id="activeTabFadingRange" type="number" width="20" min="0" max="100"/>
-                <textbox id="inactiveTabFadingRange" type="number" width="20" min="0" max="100"/>
-                <textbox id="hoveredTabFadingRange" type="number" width="20" min="0" max="100"/>
+                <textbox id="activeTabFadingRange" type="number" width="25" min="0" max="100"/>
+                <textbox id="inactiveTabFadingRange" type="number" width="25" min="0" max="100"/>
+                <textbox id="hoveredTabFadingRange" type="number" width="25" min="0" max="100"/>
               </row>
               
               <row>
                 <hbox flex="0" align="center">
                   <label value="Fading power"/>
                 </hbox>
-                <textbox id="activeTabFadingPower" type="number" width="20" min="0" max="100"/>
-                <textbox id="inactiveTabFadingPower" type="number" width="20" min="0" max="100"/>
-                <textbox id="hoveredTabFadingPower" type="number" width="20" min="0" max="100"/>
+                <textbox id="activeTabFadingPower" type="number" width="25" min="0" max="100"/>
+                <textbox id="inactiveTabFadingPower" type="number" width="25" min="0" max="100"/>
+                <textbox id="hoveredTabFadingPower" type="number" width="25" min="0" max="100"/>
               </row>
               
               <row>
                 <hbox flex="0" align="center">
                   <label value="Color saturation"/>
                 </hbox>
-                <textbox id="activeTabSaturation" type="number" width="20" min="0" max="100"/>
-                <textbox id="inactiveTabSaturation" type="number" width="20" min="0" max="100"/>
-                <textbox id="hoveredTabSaturation" type="number" width="20" min="0" max="100"/>
+                <textbox id="activeTabSaturation" type="number" width="25" min="0" max="100"/>
+                <textbox id="inactiveTabSaturation" type="number" width="25" min="0" max="100"/>
+                <textbox id="hoveredTabSaturation" type="number" width="25" min="0" max="100"/>
               </row>
               
               <row>
                 <hbox flex="0" align="center">
                   <label value="Color brightness"/>
                 </hbox>
-                <textbox id="activeTabBrightness" type="number" width="20" min="0" max="100"/>
-                <textbox id="inactiveTabBrightness" type="number" width="20" min="0" max="100"/>
-                <textbox id="hoveredTabBrightness" type="number" width="20" min="0" max="100"/>
+                <textbox id="activeTabBrightness" type="number" width="25" min="0" max="100"/>
+                <textbox id="inactiveTabBrightness" type="number" width="25" min="0" max="100"/>
+                <textbox id="hoveredTabBrightness" type="number" width="25" min="0" max="100"/>
               </row>
               
               <row>
                 <hbox flex="0" align="center">
                   <label value="Tab opacity"/>
                 </hbox>
-                <textbox id="activeTabOpacity" type="number" width="20" min="0" max="100"/>
-                <textbox id="inactiveTabOpacity" type="number" width="20" min="0" max="100"/>
-                <textbox id="hoveredTabOpacity" type="number" width="20" min="0" max="100"/>
+                <textbox id="activeTabOpacity" type="number" width="25" min="0" max="100"/>
+                <textbox id="inactiveTabOpacity" type="number" width="25" min="0" max="100"/>
+                <textbox id="hoveredTabOpacity" type="number" width="25" min="0" max="100"/>
               </row>
               
               <row>
                 <hbox flex="0" align="center">
                   <label value="Title color"/>
                 </hbox>
-                <textbox id="activeTabFontColor" style="text-align: right;" width="20"/>
-                <textbox id="inactiveTabFontColor" style="text-align: right;" width="20"/>
-                <textbox id="hoveredTabFontColor" style="text-align: right;" width="20"/>
+                <textbox id="activeTabFontColor" style="text-align: right;" width="25"/>
+                <textbox id="inactiveTabFontColor" style="text-align: right;" width="25"/>
+                <textbox id="hoveredTabFontColor" style="text-align: right;" width="25"/>
               </row>
               
               <row>
                 <hbox flex="0" align="center">
                   <label value="Title shadow color"/>
                 </hbox>
-                <textbox id="activeTabFontShadowColor" style="text-align: right;" width="20"/>
-                <textbox id="inactiveTabFontShadowColor" style="text-align: right;" width="20"/>
-                <textbox id="hoveredTabFontShadowColor" style="text-align: right;" width="20"/>
+                <textbox id="activeTabFontShadowColor" style="text-align: right;" width="25"/>
+                <textbox id="inactiveTabFontShadowColor" style="text-align: right;" width="25"/>
+                <textbox id="hoveredTabFontShadowColor" style="text-align: right;" width="25"/>
               </row>
             </rows>
           </grid>
@@ -201,36 +193,31 @@
           <hbox flex="0" align="center">
             <label value="Minimum alpha for capturable colors"/>
             <spacer flex="1"/>
-            <textbox id="minColorAlpha" type="number" width="40" min="0" max="255"/>
-            <spacer flex="10"/>
+            <textbox id="minColorAlpha" type="number" width="55" min="0" max="255"/>
           </hbox>
           
           <hbox flex="0" align="center">
             <label value="Too bright color RGB value set"/>
             <spacer flex="1"/>
-            <textbox id="tooBrightRGBSet" type="number" width="40" min="0" max="255"/>
-            <spacer flex="10"/>
+            <textbox id="tooBrightRGBSet" type="number" width="55" min="0" max="255"/>
           </hbox>
           
           <hbox flex="0" align="center">
             <label value="Too dark color RGB value set"/>
             <spacer flex="1"/>
-            <textbox id="tooDarkRGBSet" type="number" width="40" min="0" max="255"/>
-            <spacer flex="10"/>
+            <textbox id="tooDarkRGBSet" type="number" width="55" min="0" max="255"/>
           </hbox>
           
           <hbox flex="0" align="center">
             <label value="Exceptional maximum RGB peak to peak"/>
             <spacer flex="1"/>
-            <textbox id="exceptionRGBPeakToPeak" type="number" width="40" min="0" max="255"/>
-            <spacer flex="10"/>
+            <textbox id="exceptionRGBPeakToPeak" type="number" width="55" min="0" max="255"/>
           </hbox>
           
           <hbox flex="0" align="center">
             <label value="Maximum difference between similar colors"/>
             <spacer flex="1"/>
-            <textbox id="maxDiffBetweenSimilarColors" type="number" width="40" min="0" max="255"/>
-            <spacer flex="10"/>
+            <textbox id="maxDiffBetweenSimilarColors" type="number" width="55" min="0" max="255"/>
           </hbox>
           
           <spacer flex="0" height="15"/>
