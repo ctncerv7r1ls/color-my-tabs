@@ -44,7 +44,6 @@ let defaultPrefs = {
     showTabTitleShadow: true,
     showIndicationBar: true,
     
-    morePreciseColorLookup: true,
     minColorAlpha: 128,
     tooBrightRGBSet: 220,
     tooDarkRGBSet: 70,

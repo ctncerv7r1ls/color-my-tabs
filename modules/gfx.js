@@ -107,14 +107,13 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
         let totalPixels = imgPixelData.width * imgPixelData.height;
         let pixelRGBAColor = new RGBColor(); // temporary RGB color extended by Alpha property
         
-        let colorLookupPrecision = Prefs.getValue("morePreciseColorLookup") ? 1 : 2;
         let minColorAlpha = Prefs.getValue("minColorAlpha");
         let tooBrightRGBSet = Prefs.getValue("tooBrightRGBSet");
         let tooDarkRGBSet = Prefs.getValue("tooDarkRGBSet");
         let exceptionRGBPeakToPeak = Prefs.getValue("exceptionRGBPeakToPeak");
         let maxDiffBetweenSimilarColors = Prefs.getValue("maxDiffBetweenSimilarColors");
         
-        for (let i = 0; i < totalPixels; i += colorLookupPrecision) { // += 1 or 2, depends on precision
+        for (let i = 0; i < totalPixels; i++) {
             let index = i * 4; // every pixel consists of four values - R, G, B and Alpha
             pixelRGBAColor.r = pixelArray[index];
             pixelRGBAColor.g = pixelArray[index + 1];

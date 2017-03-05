@@ -185,12 +185,6 @@
       <tabpanel>
         <vbox flex="1">
           <hbox flex="0" align="center">
-            <checkbox id="morePreciseColorLookup" label="More precise dominant color lookup"/>
-          </hbox>
-          
-          <spacer flex="0" height="15"/>
-          
-          <hbox flex="0" align="center">
             <label value="Minimum alpha for capturable colors"/>
             <spacer flex="1"/>
             <textbox id="minColorAlpha" type="number" width="55" min="0" max="255"/>
