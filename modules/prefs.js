@@ -2,49 +2,8 @@ let EXPORTED_SYMBOLS = ["Prefs"];
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 
-let Prefs = function(extName) {
-    this.defaultPrefs = {
-        tabDefaultColor: "#E0EAEA",
-        tabFadingColor: "#F0F0F0",
-        tabFadingStyle: 1,
-        
-        activeTabFadingRange: 5,
-        activeTabFadingPower: 10,
-        activeTabSaturation: 40,
-        activeTabBrightness: 70,
-        activeTabOpacity: 100,
-        activeTabFontColor: "#000000",
-        activeTabFontShadowColor: "#FFFFFF",
-        
-        inactiveTabFadingRange: 5,
-        inactiveTabFadingPower: 10,
-        inactiveTabSaturation: 30,
-        inactiveTabBrightness: 60,
-        inactiveTabOpacity: 100,
-        inactiveTabFontColor: "#000000",
-        inactiveTabFontShadowColor: "#FFFFFF",
-        
-        hoveredTabFadingRange: 5,
-        hoveredTabFadingPower: 10,
-        hoveredTabSaturation: 35,
-        hoveredTabBrightness: 65,
-        hoveredTabOpacity: 100,
-        hoveredTabFontColor: "#000000",
-        hoveredTabFontShadowColor: "#FFFFFF",
-        
-        allowColorBrightnessFixes: 1,
-        boldActiveTabTitle: true,
-        showTabTitleShadow: true,
-        showIndicationBar: true,
-        
-        morePreciseColorLookup: true,
-        minColorAlpha: 128,
-        tooBrightRGBSet: 220,
-        tooDarkRGBSet: 70,
-        exceptionRGBPeakToPeak: 35,
-        maxDiffBetweenSimilarColors: 45
-    };
-    
+let Prefs = function(extName, defaultPrefs) {
+    this.defaultPrefs = defaultPrefs;
     this.currentPrefs = {};
     
     this.prefsBranch = Services.prefs.getBranch("extensions." + extName + ".");

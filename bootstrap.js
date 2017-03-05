@@ -10,6 +10,48 @@ let RGBColorStore = null;
 
 let onPrefsApply = null;
 
+let defaultPrefs = {
+    tabDefaultColor: "#E0EAEA",
+    tabFadingColor: "#F0F0F0",
+    tabFadingStyle: 1,
+    
+    activeTabFadingRange: 5,
+    activeTabFadingPower: 10,
+    activeTabSaturation: 40,
+    activeTabBrightness: 70,
+    activeTabOpacity: 100,
+    activeTabFontColor: "#000000",
+    activeTabFontShadowColor: "#FFFFFF",
+    
+    inactiveTabFadingRange: 5,
+    inactiveTabFadingPower: 10,
+    inactiveTabSaturation: 30,
+    inactiveTabBrightness: 60,
+    inactiveTabOpacity: 100,
+    inactiveTabFontColor: "#000000",
+    inactiveTabFontShadowColor: "#FFFFFF",
+    
+    hoveredTabFadingRange: 5,
+    hoveredTabFadingPower: 10,
+    hoveredTabSaturation: 35,
+    hoveredTabBrightness: 65,
+    hoveredTabOpacity: 100,
+    hoveredTabFontColor: "#000000",
+    hoveredTabFontShadowColor: "#FFFFFF",
+    
+    allowColorBrightnessFixes: 1,
+    boldActiveTabTitle: true,
+    showTabTitleShadow: true,
+    showIndicationBar: true,
+    
+    morePreciseColorLookup: true,
+    minColorAlpha: 128,
+    tooBrightRGBSet: 220,
+    tooDarkRGBSet: 70,
+    exceptionRGBPeakToPeak: 35,
+    maxDiffBetweenSimilarColors: 45
+};
+
 function startup(data, reason) {
     // object as a scope for imports
     let Imports = {};
@@ -38,7 +80,7 @@ function startup(data, reason) {
     RGBColorStore = new Imports.Store(500); // colors cache limited to 500 entries
     
     // create new objects from module symbols with passed dependencies
-    Prefs = new Imports.Prefs(extName);
+    Prefs = new Imports.Prefs(extName, defaultPrefs);
     
     let Gfx = new Imports.Gfx(Prefs, RGBColor, RGBColorStore);
     let CSSRules = new Imports.CSSRules(CSSRule, HSLColor, Prefs, Gfx);
