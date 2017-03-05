@@ -1,7 +1,7 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
 
 const extName = "color-my-tabs";
-const extJSPath = "chrome://" + extName + "/content/js/";
+const extJSPath = "chrome://" + extName + "/content/modules/";
 
 // future global references of module symbols
 let Prefs = null;

@@ -13,8 +13,8 @@
     <em:version>2.1.10</em:version>
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
-    <em:optionsURL>chrome://color-my-tabs/content/prefs.xul</em:optionsURL>
-    <em:iconURL>chrome://color-my-tabs/content/icon.png</em:iconURL>
+    <em:optionsURL>chrome://color-my-tabs/content/forms/prefs.xul</em:optionsURL>
+    <em:iconURL>chrome://color-my-tabs/content/images/icon.png</em:iconURL>
     
     <!-- Pale Moon -->
     <em:targetApplication>
