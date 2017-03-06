@@ -94,6 +94,10 @@
           <hbox flex="0" align="center">
             <checkbox id="showIndicationBar" label="Show active tab indication bar"/>
           </hbox>
+          
+          <hbox flex="0" align="center">
+            <checkbox id="drawSeparationLine" label="Draw separation line at the bottom of inactive tabs"/>
+          </hbox>
         </vbox>
       </tabpanel>
       

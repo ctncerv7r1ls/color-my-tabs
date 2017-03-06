@@ -57,6 +57,8 @@ let Gfx = function(Prefs, RGBColor, RGBColorStore) {
             gradientBody = mainColor + "," + mainColor;
         }
         
+        appendDarkLine = appendDarkLine ? Prefs.getValue("drawSeparationLine") : false;
+        
         // append dark line is used as a visual separator for inactive tab gradients at their bottoms
         let result = appendDarkLine ? "linear-gradient(to top,rgba(26,26,26,0.4) 1px,transparent 1px),"
                                     + "linear-gradient(" + gradientBody + ")"

@@ -43,6 +43,7 @@ let defaultPrefs = {
     boldActiveTabTitle: true,
     showTabTitleShadow: true,
     showIndicationBar: true,
+    drawSeparationLine: true,
     
     minColorAlpha: 128,
     tooBrightRGBSet: 220,
