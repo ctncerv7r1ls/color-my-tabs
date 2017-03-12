@@ -1,0 +1,1 @@
+C:\"Program Files"\7-Zip\7z.exe a color-my-tabs.xpi forms images modules bootstrap.js chrome.manifest install.rdf LICENSE
