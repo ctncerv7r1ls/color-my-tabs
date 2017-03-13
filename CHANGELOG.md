@@ -13,7 +13,7 @@
 * changed default tab color to lighter
 
 #### 2.1.6
-* removed auto*update
+* removed auto-update support
 * enabled more precise dominant color lookup by default
 
 #### 2.1.5
@@ -38,10 +38,10 @@
 * added advanced color related preferences
 
 #### 2.0.4
-* added auto*update
+* added auto-update support
 
 #### 2.0.3
-* fixed redundant creation of indication bar for windows without nav*bar
+* fixed redundant creation of indication bar for windows without nav-bar
 * fixed tab braightness correction ignoring cases dependant on default color
 * fixed some other minor issues
 * changed labels of buttons in preferences window to be more meaningful
@@ -54,12 +54,12 @@
 
 #### 2.0.1
 * fixed broken boolean preference saving
-* fixed showImdicationBar preference being ignored during initialziation
+* fixed "showIndicationBar" preference being ignored during initialziation
 * improved clean up methods when closing windows
 * improved some other minor things
 
 #### 2.0.0
-* rewrote from Add*on SDK to bootstrapped XUL extension
+* rewrote from Add-on SDK to bootstrapped XUL extension
 * fixed all previous bugs
 * reworked visual indication of pinned&notified tab
 * improved brightness correction calculation 
