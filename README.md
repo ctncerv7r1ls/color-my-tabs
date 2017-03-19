@@ -5,11 +5,11 @@ This is an extension for Pale Moon web browser, which colors your tabs relativel
 ![Screenshot](http://i.imgur.com/tCkSg2j.png)
 
 ### Usage
-When a website inside a tab is loaded, the tab should become colored relatively to its favicon. No additional user interaction is required.
+When a website inside a tab is loaded, the tab should become colored relatively to its favicon.
 
-General appearance is adjustable in the extension's preferences. You can specify the default tab color, fading color and fading style. There are options to make the active tab title bold and to show shadow for tab titles. It's also possible to change thickness of the active tab colored indication bar which is enabled by default.
+Appearance of the tabs is adjustable in the extension's preferences. You can specify the default tab color, fading color and fading style. There are options to make the active tab title bold and to show shadow for tab titles. It's also possible to change thickness of the active tab colored indication bar which is enabled by default.
 
-In detailed preferences you can define some visual properties used when coloring your tabs for each of their states: active, inactive and hovered. Those include fading range, fading power, color saturation, color brightness, whole tab opacity, title color and its shadow.
+In detailed appearance preferences you can define some visual properties used when coloring your tabs for each of their states: active, inactive and hovered. Those include fading range, fading power, color saturation, color brightness, whole tab opacity, title color and its shadow color.
 
 If you aren't satisfied with dominant color lookup results, there are some options for tweaking its behavior, placed in advanced preferences window.
 
