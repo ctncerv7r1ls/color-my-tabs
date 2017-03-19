@@ -1,3 +1,11 @@
+#### 2.2.0
+* Added a preference to set the active tab indication bar's thickness.
+* Added a preference to disable drawing of dark line at the bottom of inactive tabs.
+* Forced precise dominant color lookup to be always used.
+* Removed advanced preference for toggling precise color lookup. 
+* Restyled preferences window layout.
+* Moved color brightness correction into advanced preferences tab. 
+
 #### 2.1.10
 * Restored the previous method of detecting favicon changes.
 
