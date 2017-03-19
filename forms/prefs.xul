@@ -69,21 +69,6 @@
           <spacer flex="0" height="15"/>
           
           <hbox flex="0" align="center">
-            <label value="Color brightness correction"/>
-            <spacer flex="1"/>
-            <menulist id="allowColorBrightnessFixes">
-              <menupopup>
-                <menuitem value="1" label="for all colors"/>
-                <menuitem value="2" label="only for default color"/>
-                <menuitem value="3" label="only for custom colors"/>
-                <menuitem value="4" label="disabled"/>
-              </menupopup>
-            </menulist>
-          </hbox>
-          
-          <spacer flex="0" height="15"/>
-          
-          <hbox flex="0" align="center">
             <checkbox id="boldActiveTabTitle" label="Bold active tab title"/>
           </hbox>
           
@@ -224,6 +209,21 @@
             <label value="Maximum difference between similar colors"/>
             <spacer flex="1"/>
             <textbox id="maxDiffBetweenSimilarColors" type="number" width="55" min="0" max="255"/>
+          </hbox>
+          
+          <spacer flex="0" height="15"/>
+          
+          <hbox flex="0" align="center">
+            <label value="Color brightness correction"/>
+            <spacer flex="1"/>
+            <menulist id="allowColorBrightnessFixes">
+              <menupopup>
+                <menuitem value="1" label="for all colors"/>
+                <menuitem value="2" label="only for default color"/>
+                <menuitem value="3" label="only for custom colors"/>
+                <menuitem value="4" label="disabled"/>
+              </menupopup>
+            </menulist>
           </hbox>
           
           <spacer flex="0" height="15"/>
