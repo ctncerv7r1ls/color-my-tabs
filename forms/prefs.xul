@@ -92,7 +92,7 @@
           </hbox>
           
           <hbox flex="0" align="center">
-            <checkbox id="drawSeparationLine" label="Draw separation line at the bottom of inactive tabs"/>
+            <checkbox id="drawSeparationLine" label="Draw dark line at the bottom of inactive tabs"/>
           </hbox>
           
           <spacer flex="0" height="15"/>
@@ -122,9 +122,9 @@
             <rows>
               <row>
                 <label value=""/>
-                <description style="white-space: pre; text-align: center; min-width: 50px;">Active</description>
-                <description style="white-space: pre; text-align: center; min-width: 50px;">Inactive</description>
-                <description style="white-space: pre; text-align: center; min-width: 50px;">Hovered</description>
+                <description style="white-space: pre; text-align: center; min-width: 50px;">Active tab</description>
+                <description style="white-space: pre; text-align: center; min-width: 50px;">Inactive tab</description>
+                <description style="white-space: pre; text-align: center; min-width: 50px;">Hovered tab</description>
               </row>
               
               <row>
