@@ -228,7 +228,7 @@
           
           <spacer flex="0" height="15"/>
           
-          <button label="Clear colors cache" oncommand="onCacheClear();" height="50"/>
+          <button label="Clear colors cache" oncommand="onCacheClear();" height="40"/>
         </vbox>
       </tabpanel>
       
