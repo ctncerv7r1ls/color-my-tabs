@@ -92,11 +92,19 @@
           </hbox>
           
           <hbox flex="0" align="center">
-            <checkbox id="showIndicationBar" label="Show active tab indication bar"/>
+            <checkbox id="drawSeparationLine" label="Draw separation line at the bottom of inactive tabs"/>
+          </hbox>
+          
+          <spacer flex="0" height="15"/>
+          
+          <hbox flex="0" align="center">
+            <checkbox id="showIndicationBar" label="Display active tab colored indication bar"/>
           </hbox>
           
           <hbox flex="0" align="center">
-            <checkbox id="drawSeparationLine" label="Draw separation line at the bottom of inactive tabs"/>
+            <label value="Active tab colored indication bar thickness"/>
+            <spacer flex="1"/>
+            <textbox id="indicationBarSize" type="number" width="55" min="1" max="10"/>
           </hbox>
         </vbox>
       </tabpanel>

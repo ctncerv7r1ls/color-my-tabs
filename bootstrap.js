@@ -45,6 +45,7 @@ let defaultPrefs = {
     showIndicationBar: true,
     drawSeparationLine: true,
     
+    indicationBarSize: 5,
     minColorAlpha: 128,
     tooBrightRGBSet: 220,
     tooDarkRGBSet: 70,

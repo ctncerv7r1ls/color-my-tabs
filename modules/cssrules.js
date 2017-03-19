@@ -91,7 +91,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx) {
 
         // actual CSS rule data
         this.selectors = "#navigator-toolbox[tabsontop='false']>#" + indBarId;
-        this.style["height"] = "5px";
+        this.style["height"] = Prefs.getValue("indicationBarSize") + "px";
         this.style["-moz-box-ordinal-group"] = "101";
         
         let selectedSkin = Services.prefs.getBranch("general.skins.").getCharPref("selectedSkin");
@@ -141,7 +141,7 @@ let CSSRules = function(CSSRule, HSLColor, Prefs, Gfx) {
         
         // actual CSS rule data
         this.selectors = "#navigator-toolbox[tabsontop='true']>#" + indBarId;
-        this.style["height"] = "5px";
+        this.style["height"] = Prefs.getValue("indicationBarSize") + "px";
         this.style["-moz-box-ordinal-group"] = "49";
         
         let selectedSkin = Services.prefs.getBranch("general.skins.").getCharPref("selectedSkin");
