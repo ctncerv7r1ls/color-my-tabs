@@ -61,7 +61,7 @@
                 <menuitem value="2" label="at the bottom"/>
                 <menuitem value="3" label="on the left"/>
                 <menuitem value="4" label="on the right"/>
-                <menuitem value="5" label="disable"/>
+                <menuitem value="5" label="disabled"/>
               </menupopup>
             </menulist>
           </hbox>
@@ -76,7 +76,7 @@
                 <menuitem value="1" label="for all colors"/>
                 <menuitem value="2" label="only for default color"/>
                 <menuitem value="3" label="only for custom colors"/>
-                <menuitem value="4" label="disable"/>
+                <menuitem value="4" label="disabled"/>
               </menupopup>
             </menulist>
           </hbox>
