@@ -4,9 +4,6 @@ This is an extension for Pale Moon web browser, which colors your tabs relativel
 ### Screenshot
 ![Screenshot](http://i.imgur.com/tCkSg2j.png)
 
-### Theme compatibility
-Besides Pale Moon's default theme, it should also work correctly with following custom themes: Aeromoon, Camimoon, Compact Moon, Dark Moon, Darkness, DarkPitch, Fox 2 The Moon, Kempelton Reloaded, LittleMoon, MicroMoon, Modoki Moon, Moonfox3, Moonola, Nauticalia, Noia Moon, Past Modern Revisited, Phoenity Rebirth, Qute 4 PM, Qute Large, Qute Legacy, Reinheit, Tangerinemoon, Tangomoon and White Moon.
-
 ### Usage
 When a website inside a tab is loaded, the tab should become colored relatively to its favicon. No interaction is required.
 
@@ -15,3 +12,6 @@ General appearance is adjustable in the extension's preferences. You can specify
 In detailed preferences you can define some visual properties used when coloring your tabs for each of their states: active, inactive and hovered. Those include fading range, fading power, color saturation, color brightness, whole tab opacity, title color and its shadow.
 
 If you aren't satisfied with dominant color lookup results, there are some options for tweaking its behavior, placed in advanced preferences window.
+
+### Theme compatibility
+Besides Pale Moon's default theme, it should also work correctly with following custom themes: Aeromoon, Camimoon, Compact Moon, Dark Moon, Darkness, DarkPitch, Fox 2 The Moon, Kempelton Reloaded, LittleMoon, MicroMoon, Modoki Moon, Moonfox3, Moonola, Nauticalia, Noia Moon, Past Modern Revisited, Phoenity Rebirth, Qute 4 PM, Qute Large, Qute Legacy, Reinheit, Tangerinemoon, Tangomoon and White Moon.
