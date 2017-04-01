@@ -1,8 +1,7 @@
 ## Color My Tabs
-This is an extension for Pale Moon web browser, which colors your tabs relatively to their favicons. It uses dominant color lookup to this purpose, with some restrictions. It has several parameters which can be customized such as fading style, saturation, brightness, opacity, font colors for each tab state and also few other additional tweaks.
+This is an extension for Pale Moon web browser, which colors your tabs relatively to their favicons. It uses dominant color lookup to this purpose, with some restrictions.
 
-### Screenshot
-![Screenshot](http://i.imgur.com/tCkSg2j.png)
+The extension has several parameters which can be customized such as fading style, saturation, brightness, opacity, font colors for each tab state and also few other additional tweaks.
 
 ### Usage
 When a website inside a tab is loaded, the tab should become colored relatively to its favicon.
@@ -15,3 +14,6 @@ If you aren't satisfied with dominant color lookup results, there are some optio
 
 ### Theme compatibility
 Besides Pale Moon's default theme, it should also work correctly with following custom themes: Aeromoon, Camimoon, Compact Moon, Dark Moon, Darkness, DarkPitch, Fox 2 The Moon, Kempelton Reloaded, LittleMoon, MicroMoon, Modoki Moon, Moonfox3, Moonola, Nauticalia, Noia Moon, Past Modern Revisited, Phoenity Rebirth, Qute 4 PM, Qute Large, Qute Legacy, Reinheit, Tangerinemoon, Tangomoon and White Moon.
+
+### Screenshot
+![](http://i.imgur.com/tCkSg2j.png)
