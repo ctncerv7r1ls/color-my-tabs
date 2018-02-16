@@ -16,4 +16,4 @@ If you aren't satisfied with dominant color lookup results, there are some optio
 Besides Pale Moon's default theme, it should also work correctly with following custom themes: Aeromoon, Camimoon, Compact Moon, Dark Moon, Darkness, DarkPitch, Fox 2 The Moon, Kempelton Reloaded, LittleMoon, MicroMoon, Modoki Moon, Moonfox3, Moonola, Nauticalia, Noia Moon, Past Modern Revisited, Phoenity Rebirth, Qute 4 PM, Qute Large, Qute Legacy, Reinheit, Tangerinemoon, Tangomoon and White Moon.
 
 ### Screenshot
-![](http://i.imgur.com/tCkSg2j.png)
+![](screenshot.png)
